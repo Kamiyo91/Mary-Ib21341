@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using KamiyoStaticUtil.CommonBuffs;
 using KamiyoStaticUtil.Utils;
 using Mary_Ib21341.Buffs;
@@ -24,6 +20,7 @@ namespace Mary_Ib21341.Passives
                 .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_MaryNpc_21341>())
                 ?.Die();
         }
+
         public override void OnRoundEnd()
         {
             owner.breakDetail.RecoverBreak(owner.MaxBreakLife);

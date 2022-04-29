@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using KamiyoStaticBLL.Models;
 using KamiyoStaticUtil.CommonBuffs;
 using KamiyoStaticUtil.Utils;
@@ -12,9 +8,13 @@ namespace Mary_Ib21341.Passives
 {
     public class PassiveAbility_MaryNpc_21341 : PassiveAbilityBase
     {
-        private readonly StageLibraryFloorModel
-           _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
         private BattleUnitModel _paintingUnit;
+
+        public override int SpeedDiceNumAdder()
+        {
+            return 2;
+        }
+
         public override void OnWaveStart()
         {
             owner.RecoverHP(owner.MaxHp);
@@ -38,6 +38,7 @@ namespace Mary_Ib21341.Passives
         {
             owner.breakDetail.RecoverBreak(owner.MaxBreakLife);
         }
+
         public override void OnDie()
         {
             BattleObjectManager.instance.GetAliveList(owner.faction)
@@ -54,6 +55,12 @@ namespace Mary_Ib21341.Passives
         {
             var stageModel = Singleton<StageController>.Instance.GetStageModel();
             stageModel.SetStageStorgeData("MaryPaintingNpcHp21341", _paintingUnit.hp);
+        }
+
+        public override void AfterTakeDamage(BattleUnitModel attacker, int dmg)
+        {
+            if (owner.hp < 2)
+                owner.breakDetail.LoseBreakLife(attacker);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using CustomMapUtility;
 using KamiyoStaticBLL.Models;
 using KamiyoStaticUtil.Utils;
@@ -11,7 +7,7 @@ namespace Mary_Ib21341.Util
 {
     public static class MapUtil
     {
-        #pragma warning disable 0618
+#pragma warning disable 0618
         public static void ChangeMap(MapModel model, Faction faction = Faction.Player)
         {
             if (MapStaticUtil.CheckStageMap(model.StageIds) || SingletonBehavior<BattleSceneRoot>

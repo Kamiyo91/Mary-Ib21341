@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KamiyoStaticBLL.Enums;
 using KamiyoStaticBLL.Models;
 using KamiyoStaticUtil.CommonBuffs;
@@ -16,12 +13,12 @@ namespace Mary_Ib21341.Passives
     {
         private readonly StageLibraryFloorModel
             _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
+
         private BattleUnitModel _paintingUnit;
+
         public override void OnWaveStart()
         {
             owner.RecoverHP(owner.MaxHp);
-            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 1);
-            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 1);
             _paintingUnit = UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
             {
                 Id = 10000002,
@@ -43,6 +40,7 @@ namespace Mary_Ib21341.Passives
         {
             owner.breakDetail.RecoverBreak(owner.MaxBreakLife);
         }
+
         public override void OnDie()
         {
             _paintingUnit.Die();
@@ -52,22 +50,27 @@ namespace Mary_Ib21341.Passives
         {
             UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>
                 {
-                    new AbnormalityCardDialog{id = "MaryKill",dialog = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("MaryKill1")).Value
-                        .Desc}
+                    new AbnormalityCardDialog
+                    {
+                        id = "MaryKill", dialog = ModParameters.EffectTexts
+                            .FirstOrDefault(x => x.Key.Equals("MaryKill1")).Value
+                            .Desc
+                    }
                 },
                 AbColorType.Negative);
             owner.RecoverHP(owner.MaxHp);
-        }
-
-        public override void OnSucceedAttack(BattleDiceBehavior behavior)
-        {
-            _paintingUnit.RecoverHP(2);
         }
 
         public override void OnBattleEnd()
         {
             var stageModel = Singleton<StageController>.Instance.GetStageModel();
             stageModel.SetStageStorgeData("MaryPaintingHp21341", _paintingUnit.hp);
+        }
+
+        public override void AfterTakeDamage(BattleUnitModel attacker, int dmg)
+        {
+            if (owner.hp < 2)
+                owner.breakDetail.LoseBreakLife(attacker);
         }
     }
 }

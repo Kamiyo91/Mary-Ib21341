@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CustomMapUtility;
+﻿using CustomMapUtility;
 
 namespace Mary_Ib21341
 {
@@ -11,10 +6,11 @@ namespace Mary_Ib21341
     {
         public override void OnWaveStart()
         {
-            CustomMapHandler.InitCustomMap<Mary_21341MapManager>("Mary_Re21341", false, true, 0.5f, 0.2f);
+            CustomMapHandler.InitCustomMap<Mary_21341MapManager>("Mary_Re21341", false, true, 0.5f, 0.55f);
             CustomMapHandler.EnforceMap();
             Singleton<StageController>.Instance.CheckMapChange();
         }
+
         public override void OnRoundStart()
         {
             CustomMapHandler.EnforceMap();
