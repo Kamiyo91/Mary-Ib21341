@@ -31,6 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="KamiyoStaticBLL">
+      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticBLL\bin\Debug\KamiyoStaticBLL.dll</HintPath>
+    </Reference>
+    <Reference Include="KamiyoStaticUtil">
+      <HintPath>..\..\KamiyoStaticDll\KamiyoStaticUtil\bin\Debug\KamiyoStaticUtil.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,9 +48,49 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\MaryModParameters.cs" />
+    <Compile Include="Buffs\BattleUnitBuf_PaitingUntargetable_21341.cs" />
+    <Compile Include="Cards\DiceCardSelfAbility_FakeFlower_21341.cs" />
+    <Compile Include="Cards\DiceCardSelfAbility_GuertenaGallery_21341.cs" />
+    <Compile Include="Cards\DiceCardSelfAbility_LostHope_21341.cs" />
+    <Compile Include="Cards\DiceCardSelfAbility_ReachOut_21341.cs" />
+    <Compile Include="Cards\DiceCardSelfAbility_Sketchbook_21341.cs" />
+    <Compile Include="Dice\DiceCardAbility_LostHopeDice_21341.cs" />
+    <Compile Include="EnemyTeamStageManager_Mary_21341.cs" />
+    <Compile Include="MaryModInit_21341.cs" />
+    <Compile Include="Mary_21341MapManager.cs" />
+    <Compile Include="Passives\PassiveAbility_FabricatedWorld_21341.cs" />
+    <Compile Include="Passives\PassiveAbility_GuertenaArt_21341.cs" />
+    <Compile Include="Passives\PassiveAbility_MaryNpc_21341.cs" />
+    <Compile Include="Passives\PassiveAbility_MaryPaintingNpc_21341.cs" />
+    <Compile Include="Passives\PassiveAbility_Mary_21341.cs" />
+    <Compile Include="Passives\PassiveAbility_MaryPainting_21341.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\CustomMapUtility\Assemblies\CustomMapUtility.cs" />
+    <Compile Include="Util\MapUtil.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Util\CustomMapUtility\README.md" />
+    <None Include="Util\CustomMapUtility\Resource\CustomAudio\README.md" />
+    <None Include="Util\CustomMapUtility\Resource\Stage\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Background.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Floor.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\FloorUnder.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Formation Position Markers.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch1.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch2.png" />
+    <Content Include="Util\CustomMapUtility\Resource\Stage\Template\Scratch3.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

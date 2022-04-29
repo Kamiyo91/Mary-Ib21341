@@ -1,0 +1,73 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using KamiyoStaticBLL.Enums;
+using KamiyoStaticBLL.Models;
+using KamiyoStaticUtil.CommonBuffs;
+using KamiyoStaticUtil.Utils;
+using LOR_XML;
+using Mary_Ib21341.BLL;
+
+namespace Mary_Ib21341.Passives
+{
+    public class PassiveAbility_Mary_21341 : PassiveAbilityBase
+    {
+        private readonly StageLibraryFloorModel
+            _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
+        private BattleUnitModel _paintingUnit;
+        public override void OnWaveStart()
+        {
+            owner.RecoverHP(owner.MaxHp);
+            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 1);
+            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 1);
+            _paintingUnit = UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
+            {
+                Id = 10000002,
+                Name = ModParameters.NameTexts
+                    .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 2))).Value,
+                EmotionLevel = 0,
+                MaxEmotionLevel = 0,
+                Pos = 12,
+                Sephirah = _floor.Sephirah,
+                CustomPos = new XmlVector2 { x = 36, y = 0 }
+            }, MaryModParameters.PackageId);
+            if (Singleton<StageController>.Instance.GetStageModel()
+                .GetStageStorageData<float>("MaryPaintingHp21341", out var paintingHp))
+                _paintingUnit.SetHp((int)paintingHp);
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+        }
+
+        public override void OnRoundEnd()
+        {
+            owner.breakDetail.RecoverBreak(owner.MaxBreakLife);
+        }
+        public override void OnDie()
+        {
+            _paintingUnit.Die();
+        }
+
+        public override void OnKill(BattleUnitModel target)
+        {
+            UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>
+                {
+                    new AbnormalityCardDialog{id = "MaryKill",dialog = ModParameters.EffectTexts.FirstOrDefault(x => x.Key.Equals("MaryKill1")).Value
+                        .Desc}
+                },
+                AbColorType.Negative);
+            owner.RecoverHP(owner.MaxHp);
+        }
+
+        public override void OnSucceedAttack(BattleDiceBehavior behavior)
+        {
+            _paintingUnit.RecoverHP(2);
+        }
+
+        public override void OnBattleEnd()
+        {
+            var stageModel = Singleton<StageController>.Instance.GetStageModel();
+            stageModel.SetStageStorgeData("MaryPaintingHp21341", _paintingUnit.hp);
+        }
+    }
+}

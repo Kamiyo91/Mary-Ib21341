@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CustomMapUtility;
+using UnityEngine;
+
+namespace Mary_Ib21341
+{
+    public class Mary_21341MapManager : CustomMapManager
+    {
+        protected internal override string[] CustomBGMs => new[] { "MaryTheme21341.ogg" };
+
+        public override void EnableMap(bool b)
+        {
+            sephirahColor = Color.black;
+            base.EnableMap(b);
+        }
+    }
+}
