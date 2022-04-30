@@ -87,6 +87,7 @@
     <Compile Include="Mary_21341MapManager.cs" />
     <Compile Include="Passives\PassiveAbility_ArtWorld_21341.cs" />
     <Compile Include="Passives\PassiveAbility_FabricatedWorld_21341.cs" />
+    <Compile Include="Passives\PassiveAbility_FlowerProtection_21341.cs" />
     <Compile Include="Passives\PassiveAbility_GuertenaArt_21341.cs" />
     <Compile Include="Passives\PassiveAbility_MaryNpc_21341.cs" />
     <Compile Include="Passives\PassiveAbility_MaryPaintingNpc_21341.cs" />
