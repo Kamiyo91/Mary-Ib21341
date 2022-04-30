@@ -15,7 +15,6 @@ namespace Mary_Ib21341.Passives
             _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
 
         private BattleUnitModel _paintingUnit;
-
         private bool _staggered;
 
         public override void OnWaveStart()
@@ -42,6 +41,7 @@ namespace Mary_Ib21341.Passives
         {
             owner.personalEgoDetail.RemoveCard(new LorId(MaryModParameters.PackageId, 2));
             owner.personalEgoDetail.AddCard(new LorId(MaryModParameters.PackageId, 2));
+            owner.personalEgoDetail.GetCardAll().FirstOrDefault(x => x.GetID() == new LorId(MaryModParameters.PackageId, 2))?.AddCost(-4);
             if (!_staggered) return;
             _staggered = false;
             owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoLockedUnit());

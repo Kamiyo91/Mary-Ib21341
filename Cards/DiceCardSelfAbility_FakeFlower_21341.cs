@@ -17,9 +17,12 @@ namespace Mary_Ib21341.Cards
         {
             var paitingUnit = BattleObjectManager.instance.GetAliveList(unit.faction)
                 .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>());
+            if (paitingUnit == null) return;
+            var paintingPassive = paitingUnit.passiveDetail.PassiveList.FirstOrDefault(x => x is PassiveAbility_MaryPainting_21341) as PassiveAbility_MaryPainting_21341;
             UnitUtil.RemoveDiceTargets(paitingUnit);
-            paitingUnit?.RecoverHP(10);
-            paitingUnit?.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoUntargetable());
+            paintingPassive?.SetHitCount();
+            paitingUnit.RecoverHP(10);
+            paitingUnit.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoUntargetable());
         }
 
         public override bool IsTargetableAllUnit()
