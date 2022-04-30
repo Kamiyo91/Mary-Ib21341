@@ -14,8 +14,9 @@ namespace Mary_Ib21341.Passives
         private readonly StageLibraryFloorModel
             _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
 
-        private bool _staggered;
         private BattleUnitModel _paintingUnit;
+
+        private bool _staggered;
 
         public override void OnWaveStart()
         {
@@ -39,7 +40,7 @@ namespace Mary_Ib21341.Passives
 
         public override void OnRoundStartAfter()
         {
-            owner.personalEgoDetail.RemoveCard(new LorId(MaryModParameters.PackageId,2));
+            owner.personalEgoDetail.RemoveCard(new LorId(MaryModParameters.PackageId, 2));
             owner.personalEgoDetail.AddCard(new LorId(MaryModParameters.PackageId, 2));
             if (!_staggered) return;
             _staggered = false;
@@ -82,11 +83,12 @@ namespace Mary_Ib21341.Passives
             if (owner.hp < 2)
                 owner.breakDetail.LoseBreakLife(attacker);
         }
-        
+
         public override void OnReleaseBreak()
         {
             owner.RecoverHP(owner.MaxHp);
         }
+
         public override void OnBreakState()
         {
             UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>

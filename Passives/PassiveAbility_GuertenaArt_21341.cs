@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using KamiyoStaticBLL.Enums;
-using KamiyoStaticBLL.Models;
-using KamiyoStaticUtil.CommonBuffs;
+﻿using System.Linq;
 using KamiyoStaticUtil.Utils;
-using LOR_XML;
 
 namespace Mary_Ib21341.Passives
 {

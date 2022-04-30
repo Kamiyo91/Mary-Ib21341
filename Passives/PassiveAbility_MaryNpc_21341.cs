@@ -84,10 +84,12 @@ namespace Mary_Ib21341.Passives
             if (owner.hp < 2)
                 owner.breakDetail.LoseBreakLife(attacker);
         }
+
         public override void OnReleaseBreak()
         {
             owner.RecoverHP(owner.MaxHp);
         }
+
         public override void OnBreakState()
         {
             UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>
