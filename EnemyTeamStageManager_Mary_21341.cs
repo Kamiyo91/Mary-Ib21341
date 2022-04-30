@@ -6,7 +6,7 @@ namespace Mary_Ib21341
     {
         public override void OnWaveStart()
         {
-            CustomMapHandler.InitCustomMap<Mary_21341MapManager>("Mary_Re21341", false, true, 0.5f, 0.55f);
+            CustomMapHandler.InitCustomMap<Mary_21341MapManager>("Mary_21341", false, true, 0.5f, 0.55f);
             CustomMapHandler.EnforceMap();
             Singleton<StageController>.Instance.CheckMapChange();
         }

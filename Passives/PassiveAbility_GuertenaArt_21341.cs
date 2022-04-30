@@ -17,6 +17,22 @@ namespace Mary_Ib21341.Passives
             _count = 1;
             owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, _count);
             owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, _count);
+            if (BattleObjectManager.instance.GetAliveList(UnitUtil.ReturnOtherSideFaction(owner.faction)).Count(x =>
+                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
+                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
+                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) == 1)
+            {
+                owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 1);
+                owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 1);
+            }
+
+            if (BattleObjectManager.instance.GetAliveList(owner.faction).Count(x =>
+                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
+                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
+                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) !=
+                1) return;
+            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 1);
+            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 1);
         }
 
         public override void OnRoundEnd()
@@ -44,17 +60,6 @@ namespace Mary_Ib21341.Passives
         public override void OnBreakState()
         {
             UnitUtil.ChangeCardCostByValue(owner, -1, 99);
-            UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>
-                {
-                    new AbnormalityCardDialog
-                    {
-                        id = "MaryBreak", dialog = ModParameters.EffectTexts
-                            .FirstOrDefault(x => x.Key.Equals("MaryBreak1")).Value
-                            .Desc
-                    }
-                },
-                AbColorType.Negative);
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoLockedUnit());
             if (_count < 2) _count++;
         }
     }

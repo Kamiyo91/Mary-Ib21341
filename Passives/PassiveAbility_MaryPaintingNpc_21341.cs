@@ -9,8 +9,7 @@ namespace Mary_Ib21341.Passives
     {
         public override void OnWaveStart()
         {
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
-            UnitUtil.RemoveDiceTargets(owner);
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoStaggerResist());
             owner.bufListDetail.AddBuf(new BattleUnitBuf_PaitingUntargetable_21341());
         }
 

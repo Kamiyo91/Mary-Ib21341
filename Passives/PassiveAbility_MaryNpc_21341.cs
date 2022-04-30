@@ -1,7 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using KamiyoStaticBLL.Enums;
 using KamiyoStaticBLL.Models;
 using KamiyoStaticUtil.CommonBuffs;
 using KamiyoStaticUtil.Utils;
+using LOR_XML;
 using Mary_Ib21341.BLL;
 
 namespace Mary_Ib21341.Passives
@@ -9,6 +12,7 @@ namespace Mary_Ib21341.Passives
     public class PassiveAbility_MaryNpc_21341 : PassiveAbilityBase
     {
         private BattleUnitModel _paintingUnit;
+        private bool _staggered;
 
         public override int SpeedDiceNumAdder()
         {
@@ -24,7 +28,7 @@ namespace Mary_Ib21341.Passives
             {
                 Id = 2,
                 EmotionLevel = 0,
-                MaxEmotionLevel = 0,
+                LockedEmotion = true,
                 Pos = 1,
                 OnWaveStart = true
             }, MaryModParameters.PackageId);
@@ -32,6 +36,14 @@ namespace Mary_Ib21341.Passives
                 .GetStageStorageData<float>("MaryPaintingNpcHp21341", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
             owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+            UnitUtil.RefreshCombatUI();
+        }
+
+        public override void OnRoundStartAfter()
+        {
+            if (!_staggered) return;
+            _staggered = false;
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoLockedUnit());
         }
 
         public override void OnRoundEnd()
@@ -48,6 +60,16 @@ namespace Mary_Ib21341.Passives
 
         public override void OnKill(BattleUnitModel target)
         {
+            UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>
+                {
+                    new AbnormalityCardDialog
+                    {
+                        id = "MaryKill", dialog = ModParameters.EffectTexts
+                            .FirstOrDefault(x => x.Key.Equals("MaryKill1_21341")).Value
+                            .Desc
+                    }
+                },
+                AbColorType.Negative);
             owner.RecoverHP(owner.MaxHp);
         }
 
@@ -61,6 +83,24 @@ namespace Mary_Ib21341.Passives
         {
             if (owner.hp < 2)
                 owner.breakDetail.LoseBreakLife(attacker);
+        }
+        public override void OnReleaseBreak()
+        {
+            owner.RecoverHP(owner.MaxHp);
+        }
+        public override void OnBreakState()
+        {
+            UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>
+                {
+                    new AbnormalityCardDialog
+                    {
+                        id = "MaryBreak", dialog = ModParameters.EffectTexts
+                            .FirstOrDefault(x => x.Key.Equals("MaryBreak1_21341")).Value
+                            .Desc
+                    }
+                },
+                AbColorType.Negative);
+            _staggered = true;
         }
     }
 }

@@ -92,6 +92,7 @@
     <Compile Include="Passives\PassiveAbility_MaryPaintingNpc_21341.cs" />
     <Compile Include="Passives\PassiveAbility_Mary_21341.cs" />
     <Compile Include="Passives\PassiveAbility_MaryPainting_21341.cs" />
+    <Compile Include="Passives\PassiveAbility_SupportUnitPainting_21341.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util\CustomMapUtility\Assemblies\CustomMapUtility.cs" />
     <Compile Include="Util\MapUtil.cs" />

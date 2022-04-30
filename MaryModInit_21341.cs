@@ -41,7 +41,7 @@ namespace Mary_Ib21341
             });
             ModParameters.OnlyCardKeywords.AddRange(new List<Tuple<List<string>, List<LorId>, LorId>>
             {
-                new Tuple<List<string>, List<LorId>, LorId>(new List<string> { "MaryPage_Sa21341" },
+                new Tuple<List<string>, List<LorId>, LorId>(new List<string> { "MaryPage_21341" },
                     new List<LorId> { new LorId(MaryModParameters.PackageId, 1) },
                     new LorId(MaryModParameters.PackageId, 10000001))
             });
@@ -66,10 +66,19 @@ namespace Mary_Ib21341
                 new Tuple<LorId, LorId>(new LorId(230008), new LorId(MaryModParameters.PackageId, 3)),
                 new Tuple<LorId, LorId>(new LorId(MaryModParameters.PackageId, 3), new LorId(230008))
             });
-            ModParameters.DefaultKeyword.Add(MaryModParameters.PackageId, "MaryModPage_Sa21341");
+            ModParameters.DefaultKeyword.Add(MaryModParameters.PackageId, "MaryModPage_21341");
             ModParameters.BookList.AddRange(new List<LorId>
             {
                 new LorId(MaryModParameters.PackageId, 2)
+            });
+            ModParameters.BannedEmotionSelectionUnit.AddRange(new List<LorId>
+            {
+                new LorId(MaryModParameters.PackageId, 2),
+                new LorId(MaryModParameters.PackageId, 10000002)
+            });
+            ModParameters.EmotionExcludePassive.AddRange(new List<LorId>
+            {
+                new LorId(MaryModParameters.PackageId, 8)
             });
         }
     }

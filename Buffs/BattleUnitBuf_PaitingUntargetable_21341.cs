@@ -14,7 +14,7 @@ namespace Mary_Ib21341.Buffs
         {
             var maryUnit = BattleObjectManager.instance.GetAliveList(_owner.faction)
                 .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_MaryNpc_21341>());
-            return !maryUnit?.IsBreakLifeZero() ?? false;
+            return maryUnit?.IsBreakLifeZero() ?? false;
         }
     }
 }

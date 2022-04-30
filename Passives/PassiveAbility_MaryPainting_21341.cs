@@ -8,7 +8,7 @@ namespace Mary_Ib21341.Passives
         public override void OnWaveStart()
         {
             owner.allyCardDetail.ExhaustAllCards();
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoStaggerResist());
             owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoCannotAct());
         }
 

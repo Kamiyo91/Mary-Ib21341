@@ -8,11 +8,7 @@ namespace Mary_Ib21341.Cards
     {
         public override void OnUseCard()
         {
-            if (BattleObjectManager.instance.GetAliveList(UnitUtil.ReturnOtherSideFaction(owner.faction)).Count(x =>
-                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) == 1)
-                UnitUtil.ChangeCardCostByValue(owner, -1, 99);
+            UnitUtil.ChangeCardCostByValue(owner, -1, 4);
             if (BattleObjectManager.instance.GetAliveList(owner.faction).Count(x =>
                     !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
                     !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
