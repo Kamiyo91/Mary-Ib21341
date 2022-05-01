@@ -34,6 +34,7 @@ namespace Mary_Ib21341.Passives
                 .GetStageStorageData<float>("MaryPaintingHp21341", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
             owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+            UnitUtil.CheckSkinProjection(owner);
             UnitUtil.RefreshCombatUI();
         }
 
