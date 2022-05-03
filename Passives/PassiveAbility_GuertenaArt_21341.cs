@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using KamiyoStaticUtil.Utils;
+﻿using KamiyoStaticUtil.Utils;
 
 namespace Mary_Ib21341.Passives
 {
@@ -12,20 +11,13 @@ namespace Mary_Ib21341.Passives
             _count = 1;
             owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, _count);
             owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, _count);
-            if (BattleObjectManager.instance.GetAliveList(UnitUtil.ReturnOtherSideFaction(owner.faction)).Count(x =>
-                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) == 1)
+            if (UnitUtil.SupportCharCheck(owner, true) == 1)
             {
                 owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 1);
                 owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 1);
             }
 
-            if (BattleObjectManager.instance.GetAliveList(owner.faction).Count(x =>
-                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) !=
-                1) return;
+            if (UnitUtil.SupportCharCheck(owner) != 1) return;
             owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 1);
             owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 1);
         }
@@ -34,20 +26,13 @@ namespace Mary_Ib21341.Passives
         {
             owner.bufListDetail.AddKeywordBufByEtc(KeywordBuf.Strength, _count);
             owner.bufListDetail.AddKeywordBufByEtc(KeywordBuf.Endurance, _count);
-            if (BattleObjectManager.instance.GetAliveList(UnitUtil.ReturnOtherSideFaction(owner.faction)).Count(x =>
-                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) == 1)
+            if (UnitUtil.SupportCharCheck(owner, true) == 1)
             {
                 owner.bufListDetail.AddKeywordBufByEtc(KeywordBuf.Strength, 1);
                 owner.bufListDetail.AddKeywordBufByEtc(KeywordBuf.Endurance, 1);
             }
 
-            if (BattleObjectManager.instance.GetAliveList(owner.faction).Count(x =>
-                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) !=
-                1) return;
+            if (UnitUtil.SupportCharCheck(owner) != 1) return;
             owner.bufListDetail.AddKeywordBufByEtc(KeywordBuf.Strength, 1);
             owner.bufListDetail.AddKeywordBufByEtc(KeywordBuf.Endurance, 1);
         }

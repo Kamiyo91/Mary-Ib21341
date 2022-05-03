@@ -20,16 +20,27 @@ namespace Mary_Ib21341.Passives
         public override void OnWaveStart()
         {
             owner.RecoverHP(owner.MaxHp);
-            _paintingUnit = UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
-            {
-                Id = 10000002,
-                Name = ModParameters.NameTexts
-                    .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 2))).Value,
-                EmotionLevel = 0,
-                Pos = 5,
-                Sephirah = _floor.Sephirah,
-                CustomPos = new XmlVector2 { x = 20, y = 0 }
-            }, MaryModParameters.PackageId);
+            _paintingUnit = owner.faction == Faction.Player
+                ? UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
+                {
+                    Id = 10000002,
+                    Name = ModParameters.NameTexts
+                        .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 2))).Value,
+                    EmotionLevel = 0,
+                    Pos = 5,
+                    Sephirah = _floor.Sephirah,
+                    CustomPos = new XmlVector2 { x = 20, y = 0 }
+                }, MaryModParameters.PackageId)
+                : _paintingUnit = UnitUtil.AddNewUnitEnemySide(new UnitModel
+                {
+                    Id = 3,
+                    EmotionLevel = 0,
+                    LockedEmotion = true,
+                    Pos = 5,
+                    CustomPos = new XmlVector2 { x = -20, y = 0 },
+                    OnWaveStart = true
+                }, MaryModParameters.PackageId);
+            ;
             if (Singleton<StageController>.Instance.GetStageModel()
                 .GetStageStorageData<float>("MaryPaintingHp21341", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
@@ -42,7 +53,8 @@ namespace Mary_Ib21341.Passives
         {
             owner.personalEgoDetail.RemoveCard(new LorId(MaryModParameters.PackageId, 2));
             owner.personalEgoDetail.AddCard(new LorId(MaryModParameters.PackageId, 2));
-            owner.personalEgoDetail.GetCardAll().FirstOrDefault(x => x.GetID() == new LorId(MaryModParameters.PackageId, 2))?.AddCost(-4);
+            owner.personalEgoDetail.GetCardAll()
+                .FirstOrDefault(x => x.GetID() == new LorId(MaryModParameters.PackageId, 2))?.AddCost(-4);
             if (!_staggered) return;
             _staggered = false;
             owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoLockedUnit());

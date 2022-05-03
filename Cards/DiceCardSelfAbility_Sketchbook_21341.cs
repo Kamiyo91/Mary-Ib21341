@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Mary_Ib21341.Passives;
+﻿using KamiyoStaticUtil.Utils;
 
 namespace Mary_Ib21341.Cards
 {
@@ -8,11 +7,7 @@ namespace Mary_Ib21341.Cards
         public override void OnUseCard()
         {
             owner.allyCardDetail.DrawCards(1);
-            if (BattleObjectManager.instance.GetAliveList(owner.faction).Count(x =>
-                    !x.passiveDetail.PassiveList.Exists(y => y.id == new LorId("LorModPackRe21341.Mod", 57)) &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPainting_21341>() &&
-                    !x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>()) !=
-                1) return;
+            if (UnitUtil.SupportCharCheck(owner) != 1) return;
             card.ApplyDiceStatBonus(DiceMatch.AllDice, new DiceStatBonus
             {
                 power = 1

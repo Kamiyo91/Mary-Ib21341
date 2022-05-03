@@ -74,12 +74,14 @@ namespace Mary_Ib21341
             ModParameters.BannedEmotionSelectionUnit.AddRange(new List<LorId>
             {
                 new LorId(MaryModParameters.PackageId, 2),
+                new LorId(MaryModParameters.PackageId, 3),
                 new LorId(MaryModParameters.PackageId, 10000002)
             });
             ModParameters.EmotionExcludePassive.AddRange(new List<LorId>
             {
                 new LorId(MaryModParameters.PackageId, 8)
             });
+            ModParameters.SupportCharPassive.Add(new LorId(MaryModParameters.PackageId, 8));
         }
     }
 }

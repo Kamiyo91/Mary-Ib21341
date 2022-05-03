@@ -6,9 +6,9 @@ namespace Mary_Ib21341.Passives
 {
     public class PassiveAbility_MaryPainting_21341 : PassiveAbilityBase
     {
-        private BattleUnitModel _mary;
-        private int _hitCount;
         private const int BaseCost = 6;
+        private int _hitCount;
+        private BattleUnitModel _mary;
 
         public override void OnWaveStart()
         {
@@ -34,12 +34,19 @@ namespace Mary_Ib21341.Passives
         {
             _hitCount++;
         }
+
         public override void OnRoundStartAfter()
         {
             _mary.personalEgoDetail.RemoveCard(new LorId(MaryModParameters.PackageId, 2));
             _mary.personalEgoDetail.AddCard(new LorId(MaryModParameters.PackageId, 2));
-            _mary.personalEgoDetail.GetCardAll().FirstOrDefault(x => x.GetID() == new LorId(MaryModParameters.PackageId, 2))?.SetCurrentCost(BaseCost - _hitCount);
+            _mary.personalEgoDetail.GetCardAll()
+                .FirstOrDefault(x => x.GetID() == new LorId(MaryModParameters.PackageId, 2))
+                ?.SetCurrentCost(BaseCost - _hitCount);
         }
-        public void SetHitCount() => _hitCount = 0;
+
+        public void SetHitCount()
+        {
+            _hitCount = 0;
+        }
     }
 }

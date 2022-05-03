@@ -22,14 +22,13 @@ namespace Mary_Ib21341.Passives
         public override void OnWaveStart()
         {
             owner.RecoverHP(owner.MaxHp);
-            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Strength, 1);
-            owner.bufListDetail.AddKeywordBufThisRoundByEtc(KeywordBuf.Endurance, 1);
             _paintingUnit = UnitUtil.AddNewUnitEnemySide(new UnitModel
             {
                 Id = 2,
                 EmotionLevel = 0,
                 LockedEmotion = true,
                 Pos = 1,
+                CustomPos = new XmlVector2 { x = -20, y = 0 },
                 OnWaveStart = true
             }, MaryModParameters.PackageId);
             if (Singleton<StageController>.Instance.GetStageModel()
