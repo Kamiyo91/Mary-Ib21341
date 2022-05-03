@@ -6,6 +6,7 @@ using KamiyoStaticUtil.CommonBuffs;
 using KamiyoStaticUtil.Utils;
 using LOR_XML;
 using Mary_Ib21341.BLL;
+using UnityEngine;
 
 namespace Mary_Ib21341.Passives
 {
@@ -13,13 +14,11 @@ namespace Mary_Ib21341.Passives
     {
         private readonly StageLibraryFloorModel
             _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
-
         private BattleUnitModel _paintingUnit;
         private bool _staggered;
 
         public override void OnWaveStart()
         {
-            owner.RecoverHP(owner.MaxHp);
             _paintingUnit = owner.faction == Faction.Player
                 ? UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
                 {
@@ -27,24 +26,25 @@ namespace Mary_Ib21341.Passives
                     Name = ModParameters.NameTexts
                         .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 2))).Value,
                     EmotionLevel = 0,
-                    Pos = 5,
+                    Pos = BattleObjectManager.instance.GetAliveList(Faction.Player).Count,
                     Sephirah = _floor.Sephirah,
                     CustomPos = new XmlVector2 { x = 20, y = 0 }
                 }, MaryModParameters.PackageId)
-                : _paintingUnit = UnitUtil.AddNewUnitEnemySide(new UnitModel
+                : _paintingUnit = UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
                 {
                     Id = 3,
+                    Name = ModParameters.NameTexts
+                        .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 2))).Value,
                     EmotionLevel = 0,
-                    LockedEmotion = true,
-                    Pos = 5,
-                    CustomPos = new XmlVector2 { x = -20, y = 0 },
-                    OnWaveStart = true
-                }, MaryModParameters.PackageId);
-            ;
+                    Pos = BattleObjectManager.instance.GetAliveList(Faction.Enemy).Count,
+                    CustomPos = new XmlVector2 { x = 20, y = 0 },
+                    OnWaveStart = true,
+                }, MaryModParameters.PackageId, false);
             if (Singleton<StageController>.Instance.GetStageModel()
-                .GetStageStorageData<float>("MaryPaintingHp21341", out var paintingHp))
+                .GetStageStorageData<float>($"MaryPaintingHp21341{owner.faction}", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
             owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+            owner.RecoverHP(owner.MaxHp);
             UnitUtil.CheckSkinProjection(owner);
             UnitUtil.RefreshCombatUI();
         }
@@ -88,7 +88,7 @@ namespace Mary_Ib21341.Passives
         public override void OnBattleEnd()
         {
             var stageModel = Singleton<StageController>.Instance.GetStageModel();
-            stageModel.SetStageStorgeData("MaryPaintingHp21341", _paintingUnit.hp);
+            stageModel.SetStageStorgeData($"MaryPaintingHp21341{owner.faction}", _paintingUnit.hp);
         }
 
         public override void AfterTakeDamage(BattleUnitModel attacker, int dmg)

@@ -30,7 +30,6 @@ namespace Mary_Ib21341
                 Path.GetDirectoryName(
                     Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
             ModParameters.Path.Add(MaryModParameters.Path);
-            ModParameters.Language = GlobalGameManager.Instance.CurrentOption.language;
             ModParameters.SpritePreviewChange.AddRange(new Dictionary<string, List<LorId>>
             {
                 { "MaryDefault_21341", new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) } }

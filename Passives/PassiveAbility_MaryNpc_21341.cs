@@ -28,7 +28,7 @@ namespace Mary_Ib21341.Passives
                 EmotionLevel = 0,
                 LockedEmotion = true,
                 Pos = 1,
-                CustomPos = new XmlVector2 { x = -20, y = 0 },
+                CustomPos = new XmlVector2 { x = 20, y = 0 },
                 OnWaveStart = true
             }, MaryModParameters.PackageId);
             if (Singleton<StageController>.Instance.GetStageModel()
