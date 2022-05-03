@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\MaryModParameters.cs" />
+    <Compile Include="Buffs\BattleUnitBuf_PaintingUntargetablePlayer_21341.cs" />
     <Compile Include="Buffs\BattleUnitBuf_PaitingUntargetable_21341.cs" />
     <Compile Include="Cards\DiceCardSelfAbility_FakeFlower_21341.cs" />
     <Compile Include="Cards\DiceCardSelfAbility_GuertenaGallery_21341.cs" />

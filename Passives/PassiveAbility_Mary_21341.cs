@@ -6,7 +6,6 @@ using KamiyoStaticUtil.CommonBuffs;
 using KamiyoStaticUtil.Utils;
 using LOR_XML;
 using Mary_Ib21341.BLL;
-using UnityEngine;
 
 namespace Mary_Ib21341.Passives
 {
@@ -14,6 +13,7 @@ namespace Mary_Ib21341.Passives
     {
         private readonly StageLibraryFloorModel
             _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
+
         private BattleUnitModel _paintingUnit;
         private bool _staggered;
 
@@ -38,7 +38,7 @@ namespace Mary_Ib21341.Passives
                     EmotionLevel = 0,
                     Pos = BattleObjectManager.instance.GetAliveList(Faction.Enemy).Count,
                     CustomPos = new XmlVector2 { x = 20, y = 0 },
-                    OnWaveStart = true,
+                    OnWaveStart = true
                 }, MaryModParameters.PackageId, false);
             if (Singleton<StageController>.Instance.GetStageModel()
                 .GetStageStorageData<float>($"MaryPaintingHp21341{owner.faction}", out var paintingHp))

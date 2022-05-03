@@ -5,6 +5,15 @@ namespace Mary_Ib21341.Buffs
 {
     public class BattleUnitBuf_PaitingUntargetable_21341 : BattleUnitBuf
     {
+        private BattleUnitModel _mary;
+
+        public override void Init(BattleUnitModel owner)
+        {
+            base.Init(owner);
+            _mary = BattleObjectManager.instance.GetAliveList(_owner.faction)
+                .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_MaryNpc_21341>());
+        }
+
         public override int SpeedDiceBreakedAdder()
         {
             return 10;
@@ -12,9 +21,12 @@ namespace Mary_Ib21341.Buffs
 
         public override bool IsTargetable()
         {
-            var maryUnit = BattleObjectManager.instance.GetAliveList(_owner.faction)
-                .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_MaryNpc_21341>());
-            return maryUnit?.IsBreakLifeZero() ?? false;
+            return _mary?.IsBreakLifeZero() ?? false;
+        }
+
+        public override bool IsInvincibleHp(BattleUnitModel attacker)
+        {
+            return _mary?.IsBreakLifeZero() ?? false;
         }
     }
 }

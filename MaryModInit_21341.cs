@@ -81,7 +81,7 @@ namespace Mary_Ib21341
                 new LorId(MaryModParameters.PackageId, 8)
             });
             ModParameters.SupportCharPassive.AddRange(new List<LorId>
-                {new LorId(MaryModParameters.PackageId, 8)});
+                { new LorId(MaryModParameters.PackageId, 8) });
             ModParameters.NoTargetSupportCharPassive.AddRange(new List<LorId>
                 { new LorId(MaryModParameters.PackageId, 8) });
         }

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
-using KamiyoStaticUtil.CommonBuffs;
 using KamiyoStaticUtil.Utils;
+using Mary_Ib21341.Buffs;
 using Mary_Ib21341.Passives;
 
 namespace Mary_Ib21341.Cards
@@ -24,7 +24,7 @@ namespace Mary_Ib21341.Cards
             UnitUtil.RemoveDiceTargets(paitingUnit);
             paintingPassive?.SetHitCount();
             paitingUnit.RecoverHP(10);
-            paitingUnit.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoUntargetable());
+            paitingUnit.bufListDetail.AddBuf(new BattleUnitBuf_PaintingUntargetablePlayer_21341());
         }
 
         public override bool IsTargetableAllUnit()
