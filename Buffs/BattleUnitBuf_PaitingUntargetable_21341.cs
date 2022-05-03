@@ -26,7 +26,7 @@ namespace Mary_Ib21341.Buffs
 
         public override bool IsInvincibleHp(BattleUnitModel attacker)
         {
-            return _mary?.IsBreakLifeZero() ?? false;
+            return !_mary?.IsBreakLifeZero() ?? false;
         }
     }
 }
