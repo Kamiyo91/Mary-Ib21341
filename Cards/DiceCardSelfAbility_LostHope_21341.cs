@@ -6,7 +6,7 @@ namespace Mary_Ib21341.Cards
     {
         public override void OnUseCard()
         {
-            UnitUtil.ChangeCardCostByValue(owner, -1, 4);
+            UnitUtil.ChangeCardCostByValue(owner, -1, 3);
             if (UnitUtil.SupportCharCheck(owner) != 1) return;
             card.ApplyDiceStatBonus(DiceMatch.AllDice, new DiceStatBonus
             {
