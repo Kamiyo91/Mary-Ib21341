@@ -65,11 +65,6 @@ namespace Mary_Ib21341.Passives
             owner.breakDetail.RecoverBreak(owner.MaxBreakLife);
         }
 
-        public override void OnDie()
-        {
-            _paintingUnit.Die();
-        }
-
         public override void OnKill(BattleUnitModel target)
         {
             UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>

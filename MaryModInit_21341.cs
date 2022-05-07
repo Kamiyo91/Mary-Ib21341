@@ -62,8 +62,14 @@ namespace Mary_Ib21341
             });
             ModParameters.ExtraConditionPassives.AddRange(new List<Tuple<LorId, List<LorId>>>
             {
-                new Tuple<LorId, List<LorId>>(new LorId(230008), new List<LorId>{new LorId(MaryModParameters.PackageId, 3)}),
-                new Tuple<LorId, List<LorId>>(new LorId(MaryModParameters.PackageId, 3),  new List<LorId>{new LorId(230008),new LorId("LorModPackRe21341.Mod", 22),new LorId("SaeModSa21341.Mod", 3),new LorId("SaeModSa21341.Mod", 8) })
+                new Tuple<LorId, List<LorId>>(new LorId(230008),
+                    new List<LorId> { new LorId(MaryModParameters.PackageId, 3) }),
+                new Tuple<LorId, List<LorId>>(new LorId(MaryModParameters.PackageId, 3),
+                    new List<LorId>
+                    {
+                        new LorId(230008), new LorId("LorModPackRe21341.Mod", 22), new LorId("SaeModSa21341.Mod", 3),
+                        new LorId("SaeModSa21341.Mod", 8)
+                    })
             });
             ModParameters.DefaultKeyword.Add(MaryModParameters.PackageId, "MaryModPage_21341");
             ModParameters.BookList.AddRange(new List<LorId>

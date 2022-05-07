@@ -50,13 +50,6 @@ namespace Mary_Ib21341.Passives
             owner.breakDetail.RecoverBreak(owner.MaxBreakLife);
         }
 
-        public override void OnDie()
-        {
-            BattleObjectManager.instance.GetAliveList(owner.faction)
-                .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_MaryPaintingNpc_21341>())
-                ?.Die();
-        }
-
         public override void OnKill(BattleUnitModel target)
         {
             UnitUtil.BattleAbDialog(owner.view.dialogUI, new List<AbnormalityCardDialog>
