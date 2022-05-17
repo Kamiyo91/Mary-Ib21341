@@ -30,6 +30,7 @@ namespace Mary_Ib21341
                 Path.GetDirectoryName(
                     Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
             ModParameters.Path.Add(MaryModParameters.Path);
+            ModParameters.LocalizePackageIdAndPath.Add(MaryModParameters.PackageId, MaryModParameters.Path);
             ModParameters.SpritePreviewChange.AddRange(new Dictionary<string, List<LorId>>
             {
                 { "MaryDefault_21341", new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) } }
