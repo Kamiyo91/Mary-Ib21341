@@ -59,7 +59,7 @@ namespace Mary_Ib21341
             {
                 new CardOptions(1, CardOption.OnlyPage,
                     bookId: new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) }),
-                new CardOptions(2, CardOption.Personal)
+                new CardOptions(2, CardOption.Personal,cardColorOptions:new CardColorOptions(new Color(0f,0.6f,0f),customIconColor:new Color(0f,0.6f,0f),useHSVFilter:false))
             });
         }
 
@@ -69,7 +69,7 @@ namespace Mary_Ib21341
             {
                 new KeypageOptions(10000001,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1),
-                    keypageColorOptions: new KeypageColorOptions(Color.cyan, Color.cyan))
+                    keypageColorOptions: new KeypageColorOptions(new Color(0f,0.6f,0f), new Color(0f,0.6f,0f)))
             });
         }
 
@@ -95,7 +95,7 @@ namespace Mary_Ib21341
         {
             ModParameters.StageOptions.Add(MaryModParameters.PackageId, new List<StageOptions>
             {
-                new StageOptions(1)
+                new StageOptions(1,stageColorOptions:new StageColorOptions(new Color(0f,0.6f,0f),new Color(0f,0.6f,0f)))
             });
         }
 
@@ -110,8 +110,9 @@ namespace Mary_Ib21341
                         new LorId(MaryModParameters.VortexTowerPackageId, 3),
                         new LorId(MaryModParameters.VortexTowerPackageId, 8)
                     }),
-                new PassiveOptions(4, false),
-                new PassiveOptions(5, false),
+                new PassiveOptions(4, false,passiveColorOptions:new PassiveColorOptions(new Color(0f,0.6f,0f),new Color(0f,0.6f,0f))),
+                new PassiveOptions(5, false,passiveColorOptions:new PassiveColorOptions(new Color(0f,0.6f,0f),new Color(0f,0.6f,0f))),
+                new PassiveOptions(6, false),
                 new PassiveOptions(8, false, bannedEgoFloorCards: true, bannedEmotionCardSelection: true,
                     gainCoins: false)
             });
@@ -121,7 +122,7 @@ namespace Mary_Ib21341
         {
             ModParameters.DropBookOptions.Add(MaryModParameters.PackageId, new List<DropBookOptions>
             {
-                new DropBookOptions(1, new DropBookColorOptions(Color.white, Color.white))
+                new DropBookOptions(1, new DropBookColorOptions(new Color(0f,0.6f,0f), new Color(0f,0.6f,0f)))
             });
         }
     }

@@ -26,7 +26,7 @@ namespace Mary_Ib21341.Passives
                 .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>());
             owner.allyCardDetail.ExhaustAllCards();
             owner.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false,isImmortal:false));
             owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221(infinite: true, lastOneScene: false));
             _unitData = _mary?.UnitData.unitData;
             _pos = _mary?.index ?? 0;
