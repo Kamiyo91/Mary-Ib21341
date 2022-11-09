@@ -40,7 +40,7 @@ namespace Mary_Ib21341.Passives
         public override void OnBreakState()
         {
             UnitUtil.ChangeCardCostByValue(owner, -1, 99, false);
-            if (_count < 2) _count++;
+            if (_count < 4) _count++;
         }
     }
 }

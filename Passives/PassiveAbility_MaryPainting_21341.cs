@@ -16,7 +16,6 @@ namespace Mary_Ib21341.Passives
         private int _hitCount;
         private BattleUnitModel _mary;
         private int _pos;
-        private UnitDataModel _unitData;
 
         public override void OnWaveStart()
         {
@@ -26,9 +25,9 @@ namespace Mary_Ib21341.Passives
                 .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>());
             owner.allyCardDetail.ExhaustAllCards();
             owner.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true,true,infinite: true, lastOneScene: false,isImmortal:false));
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, true, infinite: true, lastOneScene: false,
+                    isImmortal: false));
             owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221(infinite: true, lastOneScene: false));
-            _unitData = _mary?.UnitData.unitData;
             _pos = _mary?.index ?? 0;
         }
 
@@ -40,6 +39,7 @@ namespace Mary_Ib21341.Passives
         public override void OnRoundEnd()
         {
             owner.breakDetail.RecoverBreak(owner.MaxBreakLife);
+            _hitCount++;
         }
 
         public override void AfterTakeDamage(BattleUnitModel attacker, int dmg)
@@ -70,11 +70,12 @@ namespace Mary_Ib21341.Passives
                 .Exists(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>())) return;
             _mary = owner.faction == Faction.Player
                 ? UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryPlayerModel,
-                    BattleObjectManager.instance.GetList(Faction.Player).Count, onWaveStartEffects: false)
+                    _pos, onWaveStartEffects: false)
                 : _mary = UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryPlayerModel,
-                    BattleObjectManager.instance.GetList(Faction.Enemy).Count, onWaveStartEffects: false);
+                    _pos, onWaveStartEffects: false);
             _mary.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, true, infinite: true, lastOneScene: false,
+                    isImmortal: false));
             UnitUtil.CheckSkinProjection(_mary);
             UnitUtil.RefreshCombatUI();
         }
