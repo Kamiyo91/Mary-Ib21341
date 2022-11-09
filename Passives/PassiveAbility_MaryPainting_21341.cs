@@ -1,7 +1,6 @@
 ﻿using System.Linq;
-using KamiyoStaticBLL.Models;
-using KamiyoStaticUtil.CommonBuffs;
-using KamiyoStaticUtil.Utils;
+using BigDLL4221.Buffs;
+using BigDLL4221.Utils;
 using Mary_Ib21341.BLL;
 
 namespace Mary_Ib21341.Passives
@@ -26,8 +25,9 @@ namespace Mary_Ib21341.Passives
             _mary = BattleObjectManager.instance.GetAliveList(owner.faction)
                 .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>());
             owner.allyCardDetail.ExhaustAllCards();
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoStaggerResist());
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoCannotAct());
+            owner.bufListDetail.AddBuf(
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221(infinite: true, lastOneScene: false));
             _unitData = _mary?.UnitData.unitData;
             _pos = _mary?.index ?? 0;
         }
@@ -69,22 +69,14 @@ namespace Mary_Ib21341.Passives
             if (BattleObjectManager.instance.GetAliveList(owner.faction)
                 .Exists(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>())) return;
             _mary = owner.faction == Faction.Player
-                ? UnitUtil.AddNewUnitWithPreUnitData(_floor, new UnitModel
-                {
-                    Name = ModParameters.NameTexts
-                        .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 1))).Value,
-                    EmotionLevel = _emotionLevel,
-                    Pos = BattleObjectManager.instance.GetList(Faction.Player).Count,
-                    Sephirah = _floor.Sephirah
-                }, _unitData)
-                : _mary = UnitUtil.AddNewUnitWithPreUnitData(_floor, new UnitModel
-                {
-                    Name = ModParameters.NameTexts
-                        .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 1))).Value,
-                    EmotionLevel = _emotionLevel,
-                    Pos = BattleObjectManager.instance.GetList(Faction.Enemy).Count
-                }, _unitData, false);
-            _mary.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+                ? UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryPlayerModel,
+                    BattleObjectManager.instance.GetList(Faction.Player).Count, onWaveStartEffects: false)
+                : _mary = UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryPlayerModel,
+                    BattleObjectManager.instance.GetList(Faction.Enemy).Count, onWaveStartEffects: false);
+            _mary.bufListDetail.AddBuf(
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
+            UnitUtil.CheckSkinProjection(_mary);
+            UnitUtil.RefreshCombatUI();
         }
     }
 }

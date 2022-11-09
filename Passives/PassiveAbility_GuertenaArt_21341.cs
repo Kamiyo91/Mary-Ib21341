@@ -1,4 +1,4 @@
-﻿using KamiyoStaticUtil.Utils;
+﻿using BigDLL4221.Utils;
 
 namespace Mary_Ib21341.Passives
 {
@@ -39,7 +39,7 @@ namespace Mary_Ib21341.Passives
 
         public override void OnBreakState()
         {
-            UnitUtil.ChangeCardCostByValue(owner, -1, 99);
+            UnitUtil.ChangeCardCostByValue(owner, -1, 99,false);
             if (_count < 2) _count++;
         }
     }

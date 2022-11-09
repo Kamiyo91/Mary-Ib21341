@@ -1,4 +1,4 @@
-﻿using KamiyoStaticUtil.Utils;
+﻿using BigDLL4221.Utils;
 
 namespace Mary_Ib21341.Cards
 {

@@ -1,7 +1,6 @@
 ﻿using System.Linq;
-using KamiyoStaticBLL.Models;
-using KamiyoStaticUtil.CommonBuffs;
-using KamiyoStaticUtil.Utils;
+using BigDLL4221.Buffs;
+using BigDLL4221.Utils;
 using Mary_Ib21341.BLL;
 using Mary_Ib21341.Buffs;
 
@@ -18,7 +17,8 @@ namespace Mary_Ib21341.Passives
         public override void OnWaveStart()
         {
             _emotionLevel = 0;
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoStaggerResist());
+            owner.bufListDetail.AddBuf(
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
             owner.bufListDetail.AddBuf(new BattleUnitBuf_PaitingUntargetable_21341());
             _untargetableBuff = owner.bufListDetail.GetActivatedBufList()
                 .First(x => x is BattleUnitBuf_PaitingUntargetable_21341) as BattleUnitBuf_PaitingUntargetable_21341;
@@ -44,16 +44,12 @@ namespace Mary_Ib21341.Passives
                 UnitUtil.UnitReviveAndRecovery(_untargetableBuff.Mary, _untargetableBuff.Mary.MaxHp, true);
             if (BattleObjectManager.instance.GetAliveList(owner.faction)
                 .Exists(x => x.passiveDetail.HasPassive<PassiveAbility_MaryNpc_21341>())) return;
-            _untargetableBuff.Mary = UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
-            {
-                Id = 1,
-                Name = ModParameters.NameTexts
-                    .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 1))).Value,
-                EmotionLevel = _emotionLevel,
-                Pos = 0,
-                CustomPos = new XmlVector2 { x = 20, y = 0 }
-            }, MaryModParameters.PackageId, false);
-            _untargetableBuff.Mary.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+            _untargetableBuff.Mary = UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryNpcModel,
+                BattleObjectManager.instance.GetList(owner.faction).Count, onWaveStartEffects: false);
+            _untargetableBuff.Mary.bufListDetail.AddBuf(
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
+            UnitUtil.CheckSkinProjection(_untargetableBuff.Mary);
+            UnitUtil.RefreshCombatUI();
         }
     }
 }

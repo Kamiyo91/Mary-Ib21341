@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using KamiyoStaticBLL.Enums;
-using KamiyoStaticBLL.Models;
-using KamiyoStaticUtil.CommonBuffs;
-using KamiyoStaticUtil.Utils;
+using BigDLL4221.Buffs;
+using BigDLL4221.Enum;
+using BigDLL4221.Models;
+using BigDLL4221.Utils;
 using LOR_XML;
 using Mary_Ib21341.BLL;
 
@@ -11,6 +11,9 @@ namespace Mary_Ib21341.Passives
 {
     public class PassiveAbility_MaryNpc_21341 : PassiveAbilityBase
     {
+        private readonly StageLibraryFloorModel
+            _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
+
         private BattleUnitModel _paintingUnit;
         private bool _staggered;
 
@@ -22,19 +25,13 @@ namespace Mary_Ib21341.Passives
         public override void OnWaveStart()
         {
             owner.RecoverHP(owner.MaxHp);
-            _paintingUnit = UnitUtil.AddNewUnitEnemySide(new UnitModel
-            {
-                Id = 2,
-                EmotionLevel = 0,
-                LockedEmotion = true,
-                Pos = 1,
-                CustomPos = new XmlVector2 { x = 20, y = 0 },
-                OnWaveStart = true
-            }, MaryModParameters.PackageId);
+            _paintingUnit = UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.PaintingNpcModel,
+                BattleObjectManager.instance.GetList(owner.faction).Count, playerSide: false);
             if (Singleton<StageController>.Instance.GetStageModel()
                 .GetStageStorageData<float>("MaryPaintingNpcHp21341", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+            owner.bufListDetail.AddBuf(
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
             UnitUtil.RefreshCombatUI();
         }
 
@@ -42,7 +39,7 @@ namespace Mary_Ib21341.Passives
         {
             if (!_staggered) return;
             _staggered = false;
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoLockedUnit());
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221());
         }
 
         public override void OnRoundEnd()
@@ -56,7 +53,7 @@ namespace Mary_Ib21341.Passives
                 {
                     new AbnormalityCardDialog
                     {
-                        id = "MaryKill", dialog = ModParameters.EffectTexts
+                        id = "MaryKill", dialog = ModParameters.LocalizedItems[MaryModParameters.PackageId].EffectTexts
                             .FirstOrDefault(x => x.Key.Equals("MaryKill1_21341")).Value
                             .Desc
                     }
@@ -88,7 +85,7 @@ namespace Mary_Ib21341.Passives
                 {
                     new AbnormalityCardDialog
                     {
-                        id = "MaryBreak", dialog = ModParameters.EffectTexts
+                        id = "MaryBreak", dialog = ModParameters.LocalizedItems[MaryModParameters.PackageId].EffectTexts
                             .FirstOrDefault(x => x.Key.Equals("MaryBreak1_21341")).Value
                             .Desc
                     }

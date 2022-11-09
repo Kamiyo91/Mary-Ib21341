@@ -9,7 +9,7 @@
 
         public override void OnRoundEnd()
         {
-            Destroy();
+            _owner.bufListDetail.RemoveBuf(this);
         }
 
         public override bool IsImmortal()

@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using KamiyoStaticUtil.Utils;
+using BigDLL4221.Utils;
 using Mary_Ib21341.Buffs;
 using Mary_Ib21341.Passives;
 
@@ -21,7 +21,7 @@ namespace Mary_Ib21341.Cards
             var paintingPassive =
                 paitingUnit.passiveDetail.PassiveList.FirstOrDefault(x => x is PassiveAbility_MaryPainting_21341) as
                     PassiveAbility_MaryPainting_21341;
-            UnitUtil.RemoveDiceTargets(paitingUnit);
+            UnitUtil.RemoveDiceTargets(paitingUnit, true);
             paintingPassive?.SetHitCount();
             paitingUnit.RecoverHP(10);
             paitingUnit.bufListDetail.AddBuf(new BattleUnitBuf_PaintingUntargetablePlayer_21341());

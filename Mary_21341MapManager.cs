@@ -1,11 +1,11 @@
-﻿using CustomMapUtility;
+﻿using BigDLL4221.Utils;
 using UnityEngine;
 
 namespace Mary_Ib21341
 {
     public class Mary_21341MapManager : CustomMapManager
     {
-        protected internal override string[] CustomBGMs => new[] { "MaryTheme21341.ogg" };
+        protected override string[] CustomBGMs => new[] { "MaryTheme21341.ogg" };
 
         public override void EnableMap(bool b)
         {

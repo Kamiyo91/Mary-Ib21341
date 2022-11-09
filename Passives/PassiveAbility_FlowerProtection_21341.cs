@@ -1,4 +1,4 @@
-﻿using KamiyoStaticUtil.Utils;
+﻿using BigDLL4221.Utils;
 using Mary_Ib21341.BLL;
 
 namespace Mary_Ib21341.Passives

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using KamiyoStaticBLL.Models;
-using KamiyoStaticUtil.Utils;
+using BigDLL4221.Enum;
+using BigDLL4221.Models;
+using BigDLL4221.Utils;
+using LOR_DiceSystem;
 using Mary_Ib21341.BLL;
-using MonoMod.Utils;
+using UnityEngine;
 
 namespace Mary_Ib21341
 {
@@ -13,84 +15,114 @@ namespace Mary_Ib21341
     {
         public override void OnInitializeMod()
         {
-            InitParameters();
-            MapStaticUtil.GetArtWorks(new DirectoryInfo(MaryModParameters.Path + "/ArtWork"));
-            UnitUtil.ChangeCardItem(ItemXmlDataList.instance, MaryModParameters.PackageId);
-            UnitUtil.ChangePassiveItem(MaryModParameters.PackageId);
-            SkinUtil.LoadBookSkinsExtra(MaryModParameters.PackageId);
-            LocalizeUtil.AddLocalLocalize(MaryModParameters.Path, MaryModParameters.PackageId);
-            SkinUtil.PreLoadBufIcons();
+            OnInitParameters();
+            ArtUtil.GetArtWorks(new DirectoryInfo(MaryModParameters.Path + "/ArtWork"));
+            CardUtil.ChangeCardItem(ItemXmlDataList.instance, MaryModParameters.PackageId);
+            PassiveUtil.ChangePassiveItem(MaryModParameters.PackageId);
+            LocalizeUtil.AddGlobalLocalize(MaryModParameters.PackageId);
+            ArtUtil.PreLoadBufIcons();
             LocalizeUtil.RemoveError();
+            CardUtil.InitKeywordsList(new List<Assembly> { Assembly.GetExecutingAssembly() });
+            ArtUtil.InitCustomEffects(new List<Assembly> { Assembly.GetExecutingAssembly() });
+            CustomMapHandler.ModResources.CacheInit.InitCustomMapFiles(Assembly.GetExecutingAssembly());
         }
 
-        private static void InitParameters()
+        private static void OnInitParameters()
         {
             ModParameters.PackageIds.Add(MaryModParameters.PackageId);
-            MaryModParameters.Path =
-                Path.GetDirectoryName(
-                    Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
-            ModParameters.Path.Add(MaryModParameters.Path);
-            ModParameters.LocalizePackageIdAndPath.Add(MaryModParameters.PackageId, MaryModParameters.Path);
-            ModParameters.SpritePreviewChange.AddRange(new Dictionary<string, List<LorId>>
-            {
-                { "MaryDefault_21341", new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) } }
-            });
-            ModParameters.BooksIds.AddRange(new List<LorId>
-            {
-                new LorId(MaryModParameters.PackageId, 10000001)
-            });
-            ModParameters.OnlyCardKeywords.AddRange(new List<Tuple<List<string>, List<LorId>, LorId>>
-            {
-                new Tuple<List<string>, List<LorId>, LorId>(new List<string> { "MaryPage_21341" },
-                    new List<LorId> { new LorId(MaryModParameters.PackageId, 1) },
-                    new LorId(MaryModParameters.PackageId, 10000001))
-            });
-            ModParameters.UntransferablePassives.AddRange(new List<LorId>
-            {
-                new LorId(MaryModParameters.PackageId, 4), new LorId(MaryModParameters.PackageId, 5)
-            });
-            ModParameters.PersonalCardList.AddRange(new List<LorId>
-            {
-                new LorId(MaryModParameters.PackageId, 2)
-            });
-            //ModParameters.EgoPersonalCardList.AddRange(new List<LorId>
-            //{
-            //    new LorId(MaryModParameters.PackageId, 9)
-            //});
-            ModParameters.DynamicNames.AddRange(new Dictionary<LorId, LorId>
-            {
-                { new LorId(MaryModParameters.PackageId, 10000001), new LorId(MaryModParameters.PackageId, 1) }
-            });
-            ModParameters.ExtraConditionPassives.AddRange(new List<Tuple<LorId, List<LorId>>>
-            {
-                new Tuple<LorId, List<LorId>>(new LorId(230008),
-                    new List<LorId> { new LorId(MaryModParameters.PackageId, 3) }),
-                new Tuple<LorId, List<LorId>>(new LorId(MaryModParameters.PackageId, 3),
-                    new List<LorId>
-                    {
-                        new LorId(230008), new LorId("LorModPackRe21341.Mod", 22), new LorId("SaeModSa21341.Mod", 3),
-                        new LorId("SaeModSa21341.Mod", 8)
-                    })
-            });
+            MaryModParameters.Path = Path.GetDirectoryName(
+                Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
+            ModParameters.Path.Add(MaryModParameters.PackageId, MaryModParameters.Path);
             ModParameters.DefaultKeyword.Add(MaryModParameters.PackageId, "MaryModPage_21341");
-            ModParameters.BookList.AddRange(new List<LorId>
+            OnInitSprites();
+            OnInitKeypages();
+            OnInitCards();
+            OnInitDropBooks();
+            OnInitPassives();
+            OnInitRewards();
+            OnInitStages();
+            OnInitCredenza();
+        }
+
+        private static void OnInitRewards()
+        {
+            ModParameters.StartUpRewardOptions.Add(new RewardOptions(new Dictionary<LorId, int>
+                {
+                    { new LorId(MaryModParameters.PackageId, 2), 0 }
+                }
+            ));
+        }
+
+        private static void OnInitCards()
+        {
+            ModParameters.CardOptions.Add(MaryModParameters.PackageId, new List<CardOptions>
             {
-                new LorId(MaryModParameters.PackageId, 2)
+                new CardOptions(1, CardOption.OnlyPage,
+                    bookId: new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) }),
+                new CardOptions(2, CardOption.Personal)
             });
-            ModParameters.BannedEmotionSelectionUnit.AddRange(new List<LorId>
+        }
+
+        private static void OnInitKeypages()
+        {
+            ModParameters.KeypageOptions.Add(MaryModParameters.PackageId, new List<KeypageOptions>
             {
-                new LorId(MaryModParameters.PackageId, 2),
-                new LorId(MaryModParameters.PackageId, 3),
-                new LorId(MaryModParameters.PackageId, 10000002)
+                new KeypageOptions(10000001,
+                    bookCustomOptions: new BookCustomOptions(nameTextId: 1),
+                    keypageColorOptions: new KeypageColorOptions(Color.cyan, Color.cyan))
             });
-            ModParameters.EmotionExcludePassive.AddRange(new List<LorId>
+        }
+
+        private static void OnInitCredenza()
+        {
+            ModParameters.CredenzaOptions.Add(MaryModParameters.PackageId,
+                new CredenzaOptions(CredenzaEnum.ModifiedCredenza, credenzaNameId: MaryModParameters.PackageId,
+                    customIconSpriteId: MaryModParameters.PackageId, credenzaBooksId: new List<int>
+                    {
+                        10000001
+                    }));
+        }
+
+        private static void OnInitSprites()
+        {
+            ModParameters.SpriteOptions.Add(MaryModParameters.PackageId, new List<SpriteOptions>
             {
-                new LorId(MaryModParameters.PackageId, 8)
+                new SpriteOptions(SpriteEnum.Custom, 10000001, "MaryDefault_21341")
             });
-            ModParameters.SupportCharPassive.AddRange(new List<LorId>
-                { new LorId(MaryModParameters.PackageId, 8) });
-            ModParameters.NoTargetSupportCharPassive.AddRange(new List<LorId>
-                { new LorId(MaryModParameters.PackageId, 8) });
+        }
+
+        private static void OnInitStages()
+        {
+            ModParameters.StageOptions.Add(MaryModParameters.PackageId, new List<StageOptions>
+            {
+                new StageOptions(1)
+            });
+        }
+
+        private static void OnInitPassives()
+        {
+            ModParameters.PassiveOptions.Add(MaryModParameters.PackageId, new List<PassiveOptions>
+            {
+                new PassiveOptions(3,
+                    cannotBeUsedWithPassives: new List<LorId>
+                    {
+                        new LorId(230008), new LorId(MaryModParameters.KamiyoModPackPackageId, 22),
+                        new LorId(MaryModParameters.VortexTowerPackageId, 3),
+                        new LorId(MaryModParameters.VortexTowerPackageId, 8)
+                    }),
+                new PassiveOptions(4, false),
+                new PassiveOptions(5, false),
+                new PassiveOptions(8, false, bannedEgoFloorCards: true, bannedEmotionCardSelection: true,
+                    gainCoins: false)
+            });
+        }
+
+        private static void OnInitDropBooks()
+        {
+            ModParameters.DropBookOptions.Add(MaryModParameters.PackageId, new List<DropBookOptions>
+            {
+                new DropBookOptions(1, new DropBookColorOptions(Color.white, Color.white))
+            });
         }
     }
 }

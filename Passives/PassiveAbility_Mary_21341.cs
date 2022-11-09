@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using KamiyoStaticBLL.Enums;
-using KamiyoStaticBLL.Models;
-using KamiyoStaticUtil.CommonBuffs;
-using KamiyoStaticUtil.Utils;
+using BigDLL4221.Buffs;
+using BigDLL4221.Enum;
+using BigDLL4221.Models;
+using BigDLL4221.Utils;
 using LOR_XML;
 using Mary_Ib21341.BLL;
 
@@ -20,30 +20,16 @@ namespace Mary_Ib21341.Passives
         public override void OnWaveStart()
         {
             _paintingUnit = owner.faction == Faction.Player
-                ? UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
-                {
-                    Id = 10000002,
-                    Name = ModParameters.NameTexts
-                        .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 2))).Value,
-                    EmotionLevel = 0,
-                    Pos = BattleObjectManager.instance.GetAliveList(Faction.Player).Count,
-                    Sephirah = _floor.Sephirah,
-                    CustomPos = new XmlVector2 { x = 20, y = 0 }
-                }, MaryModParameters.PackageId)
-                : _paintingUnit = UnitUtil.AddNewUnitPlayerSide(_floor, new UnitModel
-                {
-                    Id = 3,
-                    Name = ModParameters.NameTexts
-                        .FirstOrDefault(x => x.Key.Equals(new LorId(MaryModParameters.PackageId, 2))).Value,
-                    EmotionLevel = 0,
-                    Pos = BattleObjectManager.instance.GetAliveList(Faction.Enemy).Count,
-                    CustomPos = new XmlVector2 { x = 20, y = 0 },
-                    OnWaveStart = true
-                }, MaryModParameters.PackageId, false);
+                ? UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.PaintingPlayerModel,
+                    BattleObjectManager.instance.GetAliveList(Faction.Player).Count)
+                : _paintingUnit = UnitUtil.AddNewUnitWithDefaultData(_floor,
+                    MaryModParameters.PaintingPlayerModelReverse,
+                    BattleObjectManager.instance.GetAliveList(Faction.Enemy).Count, playerSide: false);
             if (Singleton<StageController>.Instance.GetStageModel()
                 .GetStageStorageData<float>($"MaryPaintingHp21341{owner.faction}", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoImmortalStagger());
+            owner.bufListDetail.AddBuf(
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
             owner.RecoverHP(owner.MaxHp);
             UnitUtil.CheckSkinProjection(owner);
             UnitUtil.RefreshCombatUI();
@@ -57,7 +43,7 @@ namespace Mary_Ib21341.Passives
                 .FirstOrDefault(x => x.GetID() == new LorId(MaryModParameters.PackageId, 2))?.AddCost(-4);
             if (!_staggered) return;
             _staggered = false;
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_KamiyoLockedUnit());
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221());
         }
 
         public override void OnRoundEnd()
@@ -71,7 +57,7 @@ namespace Mary_Ib21341.Passives
                 {
                     new AbnormalityCardDialog
                     {
-                        id = "MaryKill", dialog = ModParameters.EffectTexts
+                        id = "MaryKill", dialog = ModParameters.LocalizedItems[MaryModParameters.PackageId].EffectTexts
                             .FirstOrDefault(x => x.Key.Equals("MaryKill1_21341")).Value
                             .Desc
                     }
@@ -103,7 +89,7 @@ namespace Mary_Ib21341.Passives
                 {
                     new AbnormalityCardDialog
                     {
-                        id = "MaryBreak", dialog = ModParameters.EffectTexts
+                        id = "MaryBreak", dialog = ModParameters.LocalizedItems[MaryModParameters.PackageId].EffectTexts
                             .FirstOrDefault(x => x.Key.Equals("MaryBreak1_21341")).Value
                             .Desc
                     }
