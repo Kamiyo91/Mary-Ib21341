@@ -18,7 +18,7 @@ namespace Mary_Ib21341.Passives
         {
             _emotionLevel = 0;
             owner.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false,isImmortal:false));
+                new BattleUnitBuf_Immortal_DLL4221(false, true, true, true,infinite: true, lastOneScene: false,isImmortal:false));
             owner.bufListDetail.AddBuf(new BattleUnitBuf_PaitingUntargetable_21341());
             _untargetableBuff = owner.bufListDetail.GetActivatedBufList()
                 .First(x => x is BattleUnitBuf_PaitingUntargetable_21341) as BattleUnitBuf_PaitingUntargetable_21341;

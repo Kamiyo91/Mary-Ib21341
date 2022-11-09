@@ -57,8 +57,8 @@ namespace Mary_Ib21341
         {
             ModParameters.CardOptions.Add(MaryModParameters.PackageId, new List<CardOptions>
             {
-                new CardOptions(1, CardOption.OnlyPage,
-                    bookId: new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) }),
+                new CardOptions(1, CardOption.OnlyPage,new List<string>{"MaryPage_21341"},
+                    new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) }),
                 new CardOptions(2, CardOption.Personal,cardColorOptions:new CardColorOptions(new Color(0f,0.6f,0f),customIconColor:new Color(0f,0.6f,0f),useHSVFilter:false))
             });
         }
