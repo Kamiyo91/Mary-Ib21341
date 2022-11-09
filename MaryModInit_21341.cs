@@ -69,6 +69,12 @@ namespace Mary_Ib21341
             {
                 new KeypageOptions(10000001,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1),
+                    keypageColorOptions: new KeypageColorOptions(new Color(0f,0.6f,0f), new Color(0f,0.6f,0f))),
+                new KeypageOptions(1,
+                    bookCustomOptions: new BookCustomOptions(nameTextId: 1),
+                    keypageColorOptions: new KeypageColorOptions(new Color(0f,0.6f,0f), new Color(0f,0.6f,0f))),
+                new KeypageOptions(4,
+                    bookCustomOptions: new BookCustomOptions(nameTextId: 1),
                     keypageColorOptions: new KeypageColorOptions(new Color(0f,0.6f,0f), new Color(0f,0.6f,0f)))
             });
         }
