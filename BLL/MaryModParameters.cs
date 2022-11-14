@@ -5,8 +5,8 @@ namespace Mary_Ib21341.BLL
     public static class MaryModParameters
     {
         public const string PackageId = "MaryIb21341.Mod";
-        public const string KamiyoModPackPackageId = "LorModPackRe21341";
-        public const string VortexTowerPackageId = "SaeModSa21341";
+        public const string KamiyoModPackPackageId = "LorModPackRe21341.Mod";
+        public const string VortexTowerPackageId = "VortexTowerModSa21341.Mod";
         public static string Path;
 
         public static UnitModel PaintingNpcModel = new UnitModel(2, PackageId, 2, lockedEmotion: true,
