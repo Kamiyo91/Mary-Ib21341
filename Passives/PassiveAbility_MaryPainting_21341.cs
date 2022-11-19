@@ -9,9 +9,6 @@ namespace Mary_Ib21341.Passives
     {
         private const int BaseCost = 6;
 
-        private readonly StageLibraryFloorModel
-            _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
-
         private int _emotionLevel;
         private int _hitCount;
         private BattleUnitModel _mary;
@@ -68,11 +65,8 @@ namespace Mary_Ib21341.Passives
                 UnitUtil.UnitReviveAndRecovery(_mary, _mary.MaxHp, true);
             if (BattleObjectManager.instance.GetAliveList(owner.faction)
                 .Exists(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>())) return;
-            _mary = owner.faction == Faction.Player
-                ? UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryPlayerModel,
-                    _pos, onWaveStartEffects: false)
-                : _mary = UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryPlayerModel,
-                    _pos, onWaveStartEffects: false);
+            _mary = UnitUtil.AddNewUnitWithDefaultData(MaryModParameters.MaryPlayerModel, _pos,
+                onWaveStartEffects: false, unitSide: owner.faction);
             _mary.bufListDetail.AddBuf(
                 new BattleUnitBuf_Immortal_DLL4221(false, true, true, true, infinite: true, lastOneScene: false,
                     isImmortal: false));

@@ -11,9 +11,6 @@ namespace Mary_Ib21341.Passives
 {
     public class PassiveAbility_MaryNpc_21341 : PassiveAbilityBase
     {
-        private readonly StageLibraryFloorModel
-            _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
-
         private BattleUnitModel _paintingUnit;
         private bool _staggered;
 
@@ -25,8 +22,8 @@ namespace Mary_Ib21341.Passives
         public override void OnWaveStart()
         {
             owner.RecoverHP(owner.MaxHp);
-            _paintingUnit = UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.PaintingNpcModel,
-                BattleObjectManager.instance.GetList(owner.faction).Count, playerSide: false);
+            _paintingUnit = UnitUtil.AddNewUnitWithDefaultData(MaryModParameters.PaintingNpcModel,
+                BattleObjectManager.instance.GetList(owner.faction).Count, unitSide: owner.faction);
             if (Singleton<StageController>.Instance.GetStageModel()
                 .GetStageStorageData<float>("MaryPaintingNpcHp21341", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);

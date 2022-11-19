@@ -8,9 +8,6 @@ namespace Mary_Ib21341.Passives
 {
     public class PassiveAbility_MaryPaintingNpc_21341 : PassiveAbilityBase
     {
-        private readonly StageLibraryFloorModel
-            _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
-
         private int _emotionLevel;
         private BattleUnitBuf_PaitingUntargetable_21341 _untargetableBuff;
 
@@ -45,8 +42,9 @@ namespace Mary_Ib21341.Passives
                 UnitUtil.UnitReviveAndRecovery(_untargetableBuff.Mary, _untargetableBuff.Mary.MaxHp, true);
             if (BattleObjectManager.instance.GetAliveList(owner.faction)
                 .Exists(x => x.passiveDetail.HasPassive<PassiveAbility_MaryNpc_21341>())) return;
-            _untargetableBuff.Mary = UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.MaryNpcModel,
-                BattleObjectManager.instance.GetList(owner.faction).Count, onWaveStartEffects: false);
+            _untargetableBuff.Mary = UnitUtil.AddNewUnitWithDefaultData(MaryModParameters.MaryNpcModel,
+                BattleObjectManager.instance.GetList(owner.faction).Count, onWaveStartEffects: false,
+                unitSide: owner.faction);
             _untargetableBuff.Mary.bufListDetail.AddBuf(
                 new BattleUnitBuf_Immortal_DLL4221(false, true, true, true, infinite: true, lastOneScene: false,
                     isImmortal: false));

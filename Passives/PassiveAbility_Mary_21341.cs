@@ -11,20 +11,13 @@ namespace Mary_Ib21341.Passives
 {
     public class PassiveAbility_Mary_21341 : PassiveAbilityBase
     {
-        private readonly StageLibraryFloorModel
-            _floor = Singleton<StageController>.Instance.GetCurrentStageFloorModel();
-
         private BattleUnitModel _paintingUnit;
         private bool _staggered;
 
         public override void OnWaveStart()
         {
-            _paintingUnit = owner.faction == Faction.Player
-                ? UnitUtil.AddNewUnitWithDefaultData(_floor, MaryModParameters.PaintingPlayerModel,
-                    BattleObjectManager.instance.GetAliveList(Faction.Player).Count)
-                : _paintingUnit = UnitUtil.AddNewUnitWithDefaultData(_floor,
-                    MaryModParameters.PaintingPlayerModelReverse,
-                    BattleObjectManager.instance.GetAliveList(Faction.Enemy).Count, playerSide: false);
+            _paintingUnit = UnitUtil.AddNewUnitWithDefaultData(MaryModParameters.PaintingPlayerModel,
+                BattleObjectManager.instance.GetAliveList(owner.faction).Count, unitSide: owner.faction);
             if (Singleton<StageController>.Instance.GetStageModel()
                 .GetStageStorageData<float>($"MaryPaintingHp21341{owner.faction}", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
