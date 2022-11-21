@@ -88,7 +88,7 @@ namespace Mary_Ib21341
                     customIconSpriteId: MaryModParameters.PackageId, credenzaBooksId: new List<int>
                     {
                         10000001
-                    }));
+                    },bookDataColor:new CredenzaColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))));
         }
 
         private static void OnInitSprites()
