@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="1BigDLL4221">
-      <HintPath>..\NewDLL\bin\Debug\1BigDLL4221.dll</HintPath>
+      <HintPath>..\NewDLL\bin\Release\1BigDLL4221.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Library Of Ruina\LibraryOfRuina_Data\Managed\Assembly-CSharp.dll</HintPath>
