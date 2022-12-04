@@ -20,6 +20,7 @@ namespace Mary_Ib21341
             CardUtil.ChangeCardItem(ItemXmlDataList.instance, MaryModParameters.PackageId);
             PassiveUtil.ChangePassiveItem(MaryModParameters.PackageId);
             LocalizeUtil.AddGlobalLocalize(MaryModParameters.PackageId);
+            ArtUtil.MakeCustomBook(MaryModParameters.PackageId);
             ArtUtil.PreLoadBufIcons();
             LocalizeUtil.RemoveError();
             CardUtil.InitKeywordsList(new List<Assembly> { Assembly.GetExecutingAssembly() });
@@ -34,6 +35,7 @@ namespace Mary_Ib21341
                 Uri.UnescapeDataString(new UriBuilder(Assembly.GetExecutingAssembly().CodeBase).Path));
             ModParameters.Path.Add(MaryModParameters.PackageId, MaryModParameters.Path);
             ModParameters.DefaultKeyword.Add(MaryModParameters.PackageId, "MaryModPage_21341");
+            ModParameters.Assemblies.Add(Assembly.GetExecutingAssembly());
             OnInitSprites();
             OnInitKeypages();
             OnInitCards();
@@ -42,8 +44,15 @@ namespace Mary_Ib21341
             OnInitRewards();
             OnInitStages();
             OnInitCredenza();
+            OnInitCustomSkins();
         }
-
+        private static void OnInitCustomSkins()
+        {
+            ModParameters.CustomBookSkinsOptions.Add(MaryModParameters.PackageId, new List<CustomBookSkinsOption>
+            {
+                new CustomBookSkinsOption("MarySkin_21341", 10000001, characterNameId: 1)
+            });
+        }
         private static void OnInitRewards()
         {
             ModParameters.StartUpRewardOptions.Add(new RewardOptions(new Dictionary<LorId, int>
