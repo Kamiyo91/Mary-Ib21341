@@ -46,6 +46,7 @@ namespace Mary_Ib21341
             OnInitCredenza();
             OnInitCustomSkins();
         }
+
         private static void OnInitCustomSkins()
         {
             ModParameters.CustomBookSkinsOptions.Add(MaryModParameters.PackageId, new List<CustomBookSkinsOption>
@@ -53,6 +54,7 @@ namespace Mary_Ib21341
                 new CustomBookSkinsOption("MarySkin_21341", 10000001, characterNameId: 1)
             });
         }
+
         private static void OnInitRewards()
         {
             ModParameters.StartUpRewardOptions.Add(new RewardOptions(new Dictionary<LorId, int>
@@ -97,7 +99,7 @@ namespace Mary_Ib21341
                     customIconSpriteId: MaryModParameters.PackageId, credenzaBooksId: new List<int>
                     {
                         10000001
-                    },bookDataColor:new CredenzaColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))));
+                    }, bookDataColor: new CredenzaColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))));
         }
 
         private static void OnInitSprites()

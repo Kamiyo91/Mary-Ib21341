@@ -2,6 +2,7 @@
 using BigDLL4221.Buffs;
 using BigDLL4221.Utils;
 using Mary_Ib21341.BLL;
+using Mary_Ib21341.Buffs;
 
 namespace Mary_Ib21341.Passives
 {
@@ -24,7 +25,7 @@ namespace Mary_Ib21341.Passives
             owner.bufListDetail.AddBuf(
                 new BattleUnitBuf_Immortal_DLL4221(false, true, true, true, infinite: true, lastOneScene: false,
                     isImmortal: false));
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221(infinite: true, lastOneScene: false));
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_PaintingLockedPlayer_21341());
             _pos = _mary?.index ?? 0;
         }
 
