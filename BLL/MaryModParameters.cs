@@ -1,4 +1,5 @@
 ﻿using BigDLL4221.Models;
+using UnityEngine;
 
 namespace Mary_Ib21341.BLL
 {
@@ -15,10 +16,9 @@ namespace Mary_Ib21341.BLL
         public static UnitModel PaintingPlayerModel = new UnitModel(10000002, PackageId, 2, lockedEmotion: true,
             customPos: new XmlVector2 { x = 20, y = 0 });
 
-        public static UnitModel PaintingPlayerModelReverse = new UnitModel(3, PackageId, 2, lockedEmotion: true,
-            customPos: new XmlVector2 { x = 20, y = 0 });
-
         public static UnitModel MaryNpcModel = new UnitModel(1, PackageId, 1);
         public static UnitModel MaryPlayerModel = new UnitModel(10000001, PackageId, 1);
+        public static Color Green = new Color(0f, 0.6f, 0f);
+        public static Color Blue = new Color(0, 0.5f, 1f);
     }
 }

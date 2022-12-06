@@ -17,6 +17,7 @@ namespace Mary_Ib21341
         {
             OnInitParameters();
             ArtUtil.GetArtWorks(new DirectoryInfo(MaryModParameters.Path + "/ArtWork"));
+            ArtUtil.GetCardArtWorks(new DirectoryInfo(MaryModParameters.Path + "/CardArtWork"));
             CardUtil.ChangeCardItem(ItemXmlDataList.instance, MaryModParameters.PackageId);
             PassiveUtil.ChangePassiveItem(MaryModParameters.PackageId);
             LocalizeUtil.AddGlobalLocalize(MaryModParameters.PackageId);
@@ -69,10 +70,30 @@ namespace Mary_Ib21341
             ModParameters.CardOptions.Add(MaryModParameters.PackageId, new List<CardOptions>
             {
                 new CardOptions(1, CardOption.OnlyPage, new List<string> { "MaryPage_21341" },
-                    new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) }),
+                    new List<LorId> { new LorId(MaryModParameters.PackageId, 10000001) },
+                    cardColorOptions: new CardColorOptions(new Color(0, 0.5f, 1f), leftFrame: "MaryLeftPage_21341",
+                        rightFrame: "MaryRightPage_21341", frontFrame: "MaryUIBattlePage_Cover_21341",
+                        customIconColor: new Color(0, 0.5f, 1f), useHSVFilter: false)),
                 new CardOptions(2, CardOption.Personal,
-                    cardColorOptions: new CardColorOptions(new Color(0f, 0.6f, 0f),
-                        customIconColor: new Color(0f, 0.6f, 0f), useHSVFilter: false))
+                    cardColorOptions: new CardColorOptions(new Color(0, 0.5f, 1f), leftFrame: "MaryLeftPage_21341",
+                        rightFrame: "MaryRightPage_21341", frontFrame: "MaryUIBattlePage_Cover_21341",
+                        customIconColor: new Color(0, 0.5f, 1f), useHSVFilter: false)),
+                new CardOptions(3, CardOption.Personal,
+                    cardColorOptions: new CardColorOptions(new Color(0, 0.5f, 1f), leftFrame: "MaryLeftPage_21341",
+                        rightFrame: "MaryRightPage_21341", frontFrame: "MaryUIBattlePage_Cover_21341",
+                        customIconColor: new Color(0, 0.5f, 1f), useHSVFilter: false)),
+                new CardOptions(4, CardOption.Personal,
+                    cardColorOptions: new CardColorOptions(new Color(0, 0.5f, 1f), leftFrame: "MaryLeftPage_21341",
+                        rightFrame: "MaryRightPage_21341", frontFrame: "MaryUIBattlePage_Cover_21341",
+                        customIconColor: new Color(0, 0.5f, 1f), useHSVFilter: false)),
+                new CardOptions(5, CardOption.Personal,
+                    cardColorOptions: new CardColorOptions(new Color(0, 0.5f, 1f), leftFrame: "MaryLeftPage_21341",
+                        rightFrame: "MaryRightPage_21341", frontFrame: "MaryUIBattlePage_Cover_21341",
+                        customIconColor: new Color(0, 0.5f, 1f), useHSVFilter: false)),
+                new CardOptions(6, CardOption.Personal,
+                    cardColorOptions: new CardColorOptions(new Color(0, 0.5f, 1f), leftFrame: "MaryLeftPage_21341",
+                        rightFrame: "MaryRightPage_21341", frontFrame: "MaryUIBattlePage_Cover_21341",
+                        customIconColor: new Color(0, 0.5f, 1f), useHSVFilter: false))
             });
         }
 
@@ -82,13 +103,13 @@ namespace Mary_Ib21341
             {
                 new KeypageOptions(10000001,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1),
-                    keypageColorOptions: new KeypageColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))),
+                    keypageColorOptions: new KeypageColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f))),
                 new KeypageOptions(1,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1),
-                    keypageColorOptions: new KeypageColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))),
+                    keypageColorOptions: new KeypageColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f))),
                 new KeypageOptions(4,
                     bookCustomOptions: new BookCustomOptions(nameTextId: 1),
-                    keypageColorOptions: new KeypageColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f)))
+                    keypageColorOptions: new KeypageColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f)))
             });
         }
 
@@ -99,7 +120,7 @@ namespace Mary_Ib21341
                     customIconSpriteId: MaryModParameters.PackageId, credenzaBooksId: new List<int>
                     {
                         10000001
-                    }, bookDataColor: new CredenzaColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))));
+                    }, bookDataColor: new CredenzaColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f))));
         }
 
         private static void OnInitSprites()
@@ -115,7 +136,7 @@ namespace Mary_Ib21341
             ModParameters.StageOptions.Add(MaryModParameters.PackageId, new List<StageOptions>
             {
                 new StageOptions(1,
-                    stageColorOptions: new StageColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f)))
+                    stageColorOptions: new StageColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f)))
             });
         }
 
@@ -131,9 +152,11 @@ namespace Mary_Ib21341
                         new LorId(MaryModParameters.VortexTowerPackageId, 8)
                     }),
                 new PassiveOptions(4, false,
-                    passiveColorOptions: new PassiveColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))),
+                    passiveColorOptions: new PassiveColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f)),
+                    forceAggroOptions: new ForceAggroOptions(forceAggroByTargetedPassive: new List<LorId>
+                        { new LorId(MaryModParameters.PackageId, 5) })),
                 new PassiveOptions(5, false,
-                    passiveColorOptions: new PassiveColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f))),
+                    passiveColorOptions: new PassiveColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f))),
                 new PassiveOptions(6, false),
                 new PassiveOptions(8, false, bannedEgoFloorCards: true, bannedEmotionCardSelection: true,
                     gainCoins: false)
@@ -144,7 +167,7 @@ namespace Mary_Ib21341
         {
             ModParameters.DropBookOptions.Add(MaryModParameters.PackageId, new List<DropBookOptions>
             {
-                new DropBookOptions(1, new DropBookColorOptions(new Color(0f, 0.6f, 0f), new Color(0f, 0.6f, 0f)))
+                new DropBookOptions(1, new DropBookColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f)))
             });
         }
     }
