@@ -52,7 +52,7 @@ namespace Mary_Ib21341
         {
             ModParameters.CustomBookSkinsOptions.Add(MaryModParameters.PackageId, new List<CustomBookSkinsOption>
             {
-                new CustomBookSkinsOption("MarySkin_21341", 10000001, characterNameId: 1,iconId:"Mary21341")
+                new CustomBookSkinsOption("MarySkin_21341", 10000001, characterNameId: 1)
             });
         }
 
