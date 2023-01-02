@@ -1,5 +1,4 @@
 ﻿using BigDLL4221.Models;
-using UnityEngine;
 
 namespace Mary_Ib21341.BLL
 {
@@ -18,7 +17,5 @@ namespace Mary_Ib21341.BLL
 
         public static UnitModel MaryNpcModel = new UnitModel(1, PackageId, 1);
         public static UnitModel MaryPlayerModel = new UnitModel(10000001, PackageId, 1);
-        public static Color Green = new Color(0f, 0.6f, 0f);
-        public static Color Blue = new Color(0, 0.5f, 1f);
     }
 }

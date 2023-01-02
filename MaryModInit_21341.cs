@@ -7,6 +7,7 @@ using BigDLL4221.Models;
 using BigDLL4221.Utils;
 using LOR_DiceSystem;
 using Mary_Ib21341.BLL;
+using Mary_Ib21341.Buffs;
 using UnityEngine;
 
 namespace Mary_Ib21341
@@ -26,7 +27,6 @@ namespace Mary_Ib21341
             LocalizeUtil.RemoveError();
             CardUtil.InitKeywordsList(new List<Assembly> { Assembly.GetExecutingAssembly() });
             ArtUtil.InitCustomEffects(new List<Assembly> { Assembly.GetExecutingAssembly() });
-            CustomMapHandler.ModResources.CacheInit.InitCustomMapFiles(Assembly.GetExecutingAssembly());
         }
 
         private static void OnInitParameters()
@@ -169,6 +169,27 @@ namespace Mary_Ib21341
             {
                 new DropBookOptions(1, new DropBookColorOptions(new Color(0, 0.5f, 1f), new Color(0, 0.5f, 1f)))
             });
+        }
+
+        private static void OnInitKeypageExtra()
+        {
+            ModParameters.KeypageOptionsExtra.Add(MaryModParameters.PackageId, new List<KeypageOptionsExtra>
+            {
+                new KeypageOptionsExtra(10000001, new Dictionary<string, bool>
+                {
+                    { Condition.MultiUsePassive, true },
+                    { Condition.ForceAggro, true }
+                })
+            });
+        }
+
+        private static void OnInitBuffOptions()
+        {
+            ModParameters.BuffOptions.Add(typeof(BattleUnitBuf_PaintingLockedPlayer_21341), new BuffOptions(
+                new Dictionary<string, bool>
+                {
+                    { Condition.ForceAggro, true }
+                }));
         }
     }
 }

@@ -59,10 +59,23 @@ namespace Mary_Ib21341.Passives
             owner.RecoverHP(owner.MaxHp);
         }
 
+        //public override void OnBattleEnd()
+        //{
+        //    var stageModel = Singleton<StageController>.Instance.GetStageModel();
+        //    stageModel.SetStageStorgeData("MaryPaintingNpcHp21341", _paintingUnit.hp);
+        //}
         public override void OnBattleEnd()
         {
             var stageModel = Singleton<StageController>.Instance.GetStageModel();
-            stageModel.SetStageStorgeData("MaryPaintingNpcHp21341", _paintingUnit.hp);
+            var index = 0;
+            foreach (var unit in BattleObjectManager.instance.GetAliveList(owner.faction)
+                         .Where(x => x.passiveDetail.HasPassive<PassiveAbility_MaryNpc_21341>()))
+            {
+                stageModel.SetStageStorgeData($"SavedUnitDataHP_{owner.faction}_{index}", unit.hp);
+                stageModel.SetStageStorgeData($"SavedUnitDataEmotionLevel_{owner.faction}_{index}",
+                    unit.emotionDetail.EmotionLevel);
+                index++;
+            }
         }
 
         public override void AfterTakeDamage(BattleUnitModel attacker, int dmg)
