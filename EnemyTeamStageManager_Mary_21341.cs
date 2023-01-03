@@ -1,22 +1,18 @@
-﻿using CustomMapUtility;
+﻿using System.Collections.Generic;
+using BigDLL4221.Models;
+using BigDLL4221.StageManagers;
+using CustomMapUtility;
 using Mary_Ib21341.BLL;
 
 namespace Mary_Ib21341
 {
-    public class EnemyTeamStageManager_Mary_21341 : EnemyTeamStageManager
+    public class EnemyTeamStageManager_Mary_21341 : EnemyTeamStageManager_BaseWithCMUOnly_DLL4221
     {
-        private readonly CustomMapHandler _cmh = CustomMapHandler.GetCMU(MaryModParameters.PackageId);
-
         public override void OnWaveStart()
         {
-            _cmh.InitCustomMap<Mary_21341MapManager>("Mary_21341", false, true, 0.5f, 0.55f);
-            _cmh.EnforceMap();
-            Singleton<StageController>.Instance.CheckMapChange();
-        }
-
-        public override void OnRoundStart()
-        {
-            _cmh.EnforceMap();
+            SetParameters(CustomMapHandler.GetCMU(MaryModParameters.PackageId),
+                new List<MapModel> { MaryModParameters.MaryMapModel });
+            base.OnWaveStart();
         }
     }
 }
