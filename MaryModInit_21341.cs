@@ -46,6 +46,7 @@ namespace Mary_Ib21341
             OnInitStages();
             OnInitCredenza();
             OnInitCustomSkins();
+            OnInitExtraOptions();
         }
 
         private static void OnInitCustomSkins()
@@ -171,25 +172,20 @@ namespace Mary_Ib21341
             });
         }
 
-        private static void OnInitKeypageExtra()
+        private static void OnInitExtraOptions()
         {
-            ModParameters.KeypageOptionsExtra.Add(MaryModParameters.PackageId, new List<KeypageOptionsExtra>
+            ModParameters.ExtraOptions.Add(MaryModParameters.PackageId, new List<ExtraOptions>
             {
-                new KeypageOptionsExtra(10000001, new Dictionary<string, bool>
+                new ExtraOptions(10000001, optionType:ParameterTypeEnum.Keypage,bools:new Dictionary<string, bool>
                 {
                     { Condition.MultiUsePassive, true },
                     { Condition.ForceAggro, true }
-                })
-            });
-        }
-
-        private static void OnInitBuffOptions()
-        {
-            ModParameters.BuffOptions.Add(typeof(BattleUnitBuf_PaintingLockedPlayer_21341), new BuffOptions(
-                new Dictionary<string, bool>
+                }),
+                new ExtraOptions(buff:typeof(BattleUnitBuf_PaintingLockedPlayer_21341), optionType:ParameterTypeEnum.Buff,bools:new Dictionary<string, bool>
                 {
                     { Condition.ForceAggro, true }
-                }));
+                })
+            });
         }
     }
 }
