@@ -176,11 +176,11 @@ namespace Mary_Ib21341
         {
             ModParameters.ExtraOptions.Add(MaryModParameters.PackageId, new List<ExtraOptions>
             {
-                new ExtraOptions(10000001, optionType:ParameterTypeEnum.Keypage,bools:new Dictionary<string, bool>
-                {
-                    { Condition.MultiUsePassive, true },
-                    { Condition.ForceAggro, true }
-                }),
+                //new ExtraOptions(10000001, optionType:ParameterTypeEnum.Keypage,bools:new Dictionary<string, bool>
+                //{
+                //    { Condition.MultiUsePassive, true },
+                //    { Condition.ForceAggro, true }
+                //}),
                 new ExtraOptions(buff:typeof(BattleUnitBuf_PaintingLockedPlayer_21341), optionType:ParameterTypeEnum.Buff,bools:new Dictionary<string, bool>
                 {
                     { Condition.ForceAggro, true }
