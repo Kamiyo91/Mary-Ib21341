@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using BigDLL4221.Buffs;
-using BigDLL4221.Utils;
 using Mary_Ib21341.BLL;
 using Mary_Ib21341.Buffs;
+using UtilLoader21341.Extensions;
+using UtilLoader21341.Util;
 
 namespace Mary_Ib21341.Passives
 {
@@ -23,7 +23,7 @@ namespace Mary_Ib21341.Passives
                 .FirstOrDefault(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>());
             owner.allyCardDetail.ExhaustAllCards();
             owner.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true, true, infinite: true, lastOneScene: false,
+                new BattleUnitBuf_Immortal_DLL21341(false, true, true, infinite: true, lastOneScene: false,
                     isImmortal: false));
             owner.bufListDetail.AddBuf(new BattleUnitBuf_PaintingLockedPlayer_21341());
             _pos = _mary?.index ?? 0;
@@ -63,13 +63,13 @@ namespace Mary_Ib21341.Passives
         {
             _emotionLevel = _mary?.emotionDetail.EmotionLevel ?? _emotionLevel;
             if (_mary?.IsDead() ?? false)
-                UnitUtil.UnitReviveAndRecovery(_mary, _mary.MaxHp, true);
+                _mary.UnitReviveAndRecovery(_mary.MaxHp, true);
             if (BattleObjectManager.instance.GetAliveList(owner.faction)
                 .Exists(x => x.passiveDetail.HasPassive<PassiveAbility_Mary_21341>())) return;
             _mary = UnitUtil.AddNewUnitWithDefaultData(MaryModParameters.MaryPlayerModel, _pos,
                 onWaveStartEffects: false, unitSide: owner.faction);
             _mary.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true, true, infinite: true, lastOneScene: false,
+                new BattleUnitBuf_Immortal_DLL21341(false, true, true, infinite: true, lastOneScene: false,
                     isImmortal: false));
             UnitUtil.CheckSkinProjection(_mary);
             UnitUtil.RefreshCombatUI();

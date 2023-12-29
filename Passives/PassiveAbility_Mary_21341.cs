@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BigDLL4221.Buffs;
-using BigDLL4221.Enum;
-using BigDLL4221.Models;
-using BigDLL4221.Utils;
 using LOR_XML;
 using Mary_Ib21341.BLL;
+using UnityEngine;
+using UtilLoader21341;
+using UtilLoader21341.Extensions;
+using UtilLoader21341.Util;
 
 namespace Mary_Ib21341.Passives
 {
@@ -16,13 +16,20 @@ namespace Mary_Ib21341.Passives
 
         public override void OnWaveStart()
         {
+            if (owner.GetActivePassive<PassiveAbility_CanRedirectPassive_DLL21341>() == null)
+            {
+                var passive = new PassiveAbility_CanRedirectPassive_DLL21341();
+                owner.passiveDetail.AddPassive(passive);
+                passive.SetKeyword("MaryPaintingPlayer_21341");
+            }
+
             _paintingUnit = UnitUtil.AddNewUnitWithDefaultData(MaryModParameters.PaintingPlayerModel,
                 BattleObjectManager.instance.GetAliveList(owner.faction).Count, unitSide: owner.faction);
             if (Singleton<StageController>.Instance.GetStageModel()
                 .GetStageStorageData<float>($"MaryPaintingHp21341{owner.faction}", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
             owner.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
+                new BattleUnitBuf_Immortal_DLL21341(false, true, true, infinite: true, lastOneScene: false));
             owner.RecoverHP(owner.MaxHp);
             UnitUtil.CheckSkinProjection(owner);
             UnitUtil.RefreshCombatUI();
@@ -36,7 +43,7 @@ namespace Mary_Ib21341.Passives
                 .FirstOrDefault(x => x.GetID() == new LorId(MaryModParameters.PackageId, 2))?.AddCost(-4);
             if (!_staggered) return;
             _staggered = false;
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221());
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL21341());
         }
 
         public override void OnRoundEnd()
@@ -55,7 +62,7 @@ namespace Mary_Ib21341.Passives
                             .Desc
                     }
                 },
-                AbColorType.Negative);
+                new Color(0.5f, 0, 0, 1f));
             owner.RecoverHP(owner.MaxHp);
         }
 
@@ -87,7 +94,7 @@ namespace Mary_Ib21341.Passives
                             .Desc
                     }
                 },
-                AbColorType.Negative);
+                new Color(0.5f, 0, 0, 1f));
             _staggered = true;
         }
     }

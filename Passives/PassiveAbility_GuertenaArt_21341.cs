@@ -1,4 +1,4 @@
-﻿using BigDLL4221.Utils;
+﻿using UtilLoader21341.Util;
 
 namespace Mary_Ib21341.Passives
 {
@@ -39,7 +39,7 @@ namespace Mary_Ib21341.Passives
 
         public override void OnBreakState()
         {
-            UnitUtil.ChangeCardCostByValue(owner, -1, 99, false);
+            owner.ChangeCardCostByValue(-1, 99, false);
             if (_count < 4) _count++;
         }
     }

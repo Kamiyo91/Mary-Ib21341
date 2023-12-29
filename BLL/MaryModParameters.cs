@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BigDLL4221.Models;
+using UtilLoader21341.Models;
 
 namespace Mary_Ib21341.BLL
 {
@@ -10,16 +10,29 @@ namespace Mary_Ib21341.BLL
         public const string VortexTowerPackageId = "VortexTowerModSa21341.Mod";
         public static string Path;
 
-        public static MapModel MaryMapModel = new MapModel(typeof(Mary_21341MapManager),
-            "Mary_21341", bgy: 0.55f, originalMapStageIds: new List<LorId> { new LorId(PackageId, 1) });
+        public static MapModelRoot MaryMapModel = new MapModelRoot
+        {
+            Component = nameof(Mary_21341MapManager),
+            Stage = "Mary_21341",
+            Bgy = 0.55f,
+            OriginalMapStageIds = new List<LorIdRoot> { new LorIdRoot { PackageId = PackageId, Id = 1 } }
+        };
 
-        public static UnitModel PaintingNpcModel = new UnitModel(2, PackageId, 2, lockedEmotion: true,
-            customPos: new XmlVector2 { x = 20, y = 0 });
+        public static UnitModelRoot PaintingNpcModel = new UnitModelRoot
+        {
+            PackageId = PackageId, Id = 2, UnitNameId = 2, LockedEmotion = true,
+            CustomPos = new XmlVector2 { x = 20, y = 0 }
+        };
 
-        public static UnitModel PaintingPlayerModel = new UnitModel(10000002, PackageId, 2, lockedEmotion: true,
-            customPos: new XmlVector2 { x = 20, y = 0 });
+        public static UnitModelRoot PaintingPlayerModel = new UnitModelRoot
+        {
+            PackageId = PackageId, Id = 10000002, UnitNameId = 2, LockedEmotion = true,
+            CustomPos = new XmlVector2 { x = 20, y = 0 }
+        };
 
-        public static UnitModel MaryNpcModel = new UnitModel(1, PackageId, 1);
-        public static UnitModel MaryPlayerModel = new UnitModel(10000001, PackageId, 1);
+        public static UnitModelRoot MaryNpcModel = new UnitModelRoot { PackageId = PackageId, Id = 1, UnitNameId = 1 };
+
+        public static UnitModelRoot MaryPlayerModel = new UnitModelRoot
+            { PackageId = PackageId, Id = 10000001, UnitNameId = 1 };
     }
 }

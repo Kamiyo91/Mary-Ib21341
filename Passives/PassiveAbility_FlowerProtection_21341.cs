@@ -1,5 +1,5 @@
-﻿using BigDLL4221.Utils;
-using Mary_Ib21341.BLL;
+﻿using Mary_Ib21341.BLL;
+using UtilLoader21341.Util;
 
 namespace Mary_Ib21341.Passives
 {
@@ -7,7 +7,7 @@ namespace Mary_Ib21341.Passives
     {
         public override void OnStartBattle()
         {
-            UnitUtil.ReadyCounterCard(owner, 6, MaryModParameters.PackageId);
+            owner.ReadyCounterCard(6, MaryModParameters.PackageId);
         }
     }
 }

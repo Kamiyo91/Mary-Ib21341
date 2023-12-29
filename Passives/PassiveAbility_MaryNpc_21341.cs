@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using BigDLL4221.Buffs;
-using BigDLL4221.Enum;
-using BigDLL4221.Models;
-using BigDLL4221.Utils;
 using LOR_XML;
 using Mary_Ib21341.BLL;
+using UnityEngine;
+using UtilLoader21341;
+using UtilLoader21341.Extensions;
+using UtilLoader21341.Util;
 
 namespace Mary_Ib21341.Passives
 {
@@ -28,7 +28,7 @@ namespace Mary_Ib21341.Passives
                 .GetStageStorageData<float>("MaryPaintingNpcHp21341", out var paintingHp))
                 _paintingUnit.SetHp((int)paintingHp);
             owner.bufListDetail.AddBuf(
-                new BattleUnitBuf_Immortal_DLL4221(false, true, true, infinite: true, lastOneScene: false));
+                new BattleUnitBuf_Immortal_DLL21341(false, true, true, infinite: true, lastOneScene: false));
             UnitUtil.RefreshCombatUI();
         }
 
@@ -36,7 +36,7 @@ namespace Mary_Ib21341.Passives
         {
             if (!_staggered) return;
             _staggered = false;
-            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL4221());
+            owner.bufListDetail.AddBuf(new BattleUnitBuf_LockedUnit_DLL21341());
         }
 
         public override void OnRoundEnd()
@@ -55,7 +55,7 @@ namespace Mary_Ib21341.Passives
                             .Desc
                     }
                 },
-                AbColorType.Negative);
+                new Color(0.5f, 0, 0, 1f));
             owner.RecoverHP(owner.MaxHp);
         }
 
@@ -100,7 +100,7 @@ namespace Mary_Ib21341.Passives
                             .Desc
                     }
                 },
-                AbColorType.Negative);
+                new Color(0.5f, 0, 0, 1f));
             _staggered = true;
         }
     }
